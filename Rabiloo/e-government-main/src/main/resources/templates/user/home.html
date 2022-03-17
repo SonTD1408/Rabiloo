@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{user/layout/template}" xmlns:th="http://www.w3.org/1999/xhtml"
+      th:with="currentPage='home'">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    
+    <script src="/custom/user/js/news/home.js" type="text/javascript"></script>
+    
+    <style>
+        /* start marquee */
+        .intro-lasted-news {
+            height: 52px;
+            width: 100%;
+            padding: 0 160px;
+            border-top: 1px solid var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .label-intro-lasted-news {
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        
+        .marquee-news {
+            cursor: pointer;
+            height: 100%;
+            line-height: 51px;
+        }
+        /* end marquee */
+        
+        /* body */
+        .container-body {
+            background-color: #e2e8f0;
+            padding: 0 160px;
+        }
+        
+        .overview {
+            display: flex;
+            height: 380px;
+        }
+        .overview-news {
+            flex: 0.7;
+            display: flex;
+            background-color: white;
+            margin-right: 12px;
+            box-shadow: 0 0 3px #ccc;
+        }
+        .overview-post {
+            flex: 0.3;
+            background-color: white;
+            box-shadow: 0 0 3px #ccc;
+        }
+        
+        .container_banner {
+            flex: 0.7;
+        }
+        
+        .container_banner img {
+            width: 100%;
+            height: 380px;
+        }
+        .wrap-list-news {
+            flex: 0.3;
+            display: flex;
+            flex-direction: column;
+            font-size: 13px;
+        }
+        
+        .title-list-news {
+            height: 58px;
+            padding: 8px 0;
+            margin: 0 8px;
+            font-weight: 500;
+            border-bottom: 1px solid #ccc;
+            height: 58px;
+        }
+        .list-news {
+            display: flex;
+            flex-direction: column;
+            height: 300px !important;
+        }
+        .news {
+            padding: 8px 0;
+            margin: 0 8px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .news:hover {
+            color: var(--primary-hover-color);
+            cursor: pointer;
+        }
+        
+        .title-title-wrap-post {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding-left: 12px;
+            height: 32px;
+            line-height: 32px;
+            font-weight: 500;
+            width: 100%;
+            background-color: #b00600;
+            color: white;
+        }
+        
+        .list-post {
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .post {
+            padding: 8px 0;
+            margin: 0 8px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .post:hover {
+            color: var(--primary-hover-color);
+            cursor: pointer;
+        }
+        
+        .intro-e-government {
+            margin-top: 24px;
+            background-color: white;
+            padding: 12px;
+            box-shadow: 0 0 3px #ccc;
+        }
+        
+        .list-sub-field span {
+            margin-right: 8px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .view-detail-news {
+            font-size: 11px;
+        }
+        .view-detail-news:hover {
+            color: var(--primary-hover-color);
+            cursor: pointer;
+        }
+        
+        .content-page-news {
+            display: flex;
+            background-color: white;
+            margin: 24px 0;
+            box-shadow: 0 0 3px #ccc;
+        }
+        
+        .list-group-news-by-field {
+            flex: 0.7;
+            box-shadow: 1px 0 2px #ccc;
+        }
+        .group-news {
+            width: 100%;
+            margin-bottom: 12px;
+        }
+        .title-response-citizen {
+            background-color: #153352;
+            color: white;
+            width: 100%;
+            height: 32px;
+            line-height: 32px;
+            padding-left: 12px;
+        }
+        .wrap-header-field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            margin: 0 12px;
+        }
+        .wrap-header-field-left {
+            display: flex;
+            align-items: center;
+            color: var(--primary-hover-color);
+        }
+        .big-field {
+            font-size: 18px;
+            margin-right: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .wrap-news {
+            display: flex;
+            width: 100%;
+            height: 264px;
+        }
+        .news-col1-and-col2 {
+            display: flex;
+            flex: 0.7;
+            height: 100%;
+        }
+        .news-col1 {
+            display: flex;
+            flex: 0.6;
+            position: relative;
+            padding: 12px;
+            cursor: pointer;
+        }
+        .news-col1 img {
+            width: 100%;
+            height: 100%;
+        }
+        .title-news-col1 {
+            position: absolute;
+            left: 12px;
+            bottom: 12px;
+            width: calc(100% - 24px);
+            background-color: #153352;
+            color: white;
+            padding: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .news-col2 {
+            flex: 0.4;
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+        }
+        .news-col2 img {
+            width: 100%;
+            height: 108px;
+        }
+        .title-news-col2 {
+            width: 100%;
+            font-size: 16px;
+            color: #036;
+            font-weight: 500;
+            margin: 4px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* number of lines to show */
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        .title-news-col2:hover {
+            color: var(--primary-hover-color);
+            cursor: pointer;
+        }
+        .intro-news-col2 {
+            width: 100%;
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .list-news-col3 {
+            display: flex;
+            flex: 0.3;
+            flex-direction: column;
+            font-size: 13px;
+            padding: 12px;
+        }
+        .news-title {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .news-title:hover {
+            color: var(--primary-hover-color);
+            cursor: pointer;
+        }
+        .wrap-response-citizen {
+            flex: 0.3;
+        }
+        .response-citizen-lasted {
+            display: flex;
+            padding: 12px;
+        }
+        .response-citizen-lasted img {
+            flex: 0.3;
+            margin-right: 12px;
+            height: 68px;
+            cursor: pointer;
+        }
+        .title-response-citizen-lasted {
+            flex: 0.7;
+            font-size: 16px;
+            color: #036;
+            font-weight: 500;
+        }
+        .title-response-citizen-lasted:hover {
+            cursor: pointer;
+            color: var(--primary-hover-color);
+        }
+        .list-response-citizen {
+            font-size: 13px;
+            padding-left: 12px;
+            list-style: disc;
+            margin-left: 12px;
+        }
+
+        .list-response-citizen li {
+            margin-bottom: 8px;
+        }
+        .list-response-citizen li:hover {
+            cursor: pointer;
+            color: var(--primary-hover-color);
+        }
+        .title-wrap-post {
+            width: 100%;
+            height: 124px;
+            position: relative;
+        }
+        .title-wrap-post img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* intro e-government */
+        .label-intro-e-government {
+            font-size: 24px;
+            text-align: center;
+            font-weight: bold;
+            color: #036;
+        }
+        .list-intro-e-government {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 60px;
+        }
+        .intro-e-government-item {
+            width: 33.33%;
+            display: flex;
+            margin-right: 12px;
+        }
+        .intro-e-government-item i {
+            font-size: 42px;
+            color: var(--primary-color);
+            margin-top: 4px;
+            margin-right: 12px;
+        }
+        .wrap-intro-item {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .title-intro-item {
+            font-size: 18px;
+            font-weight: 500;
+            color: #036;
+        }
+        .content-intro-item {
+            font-size: 13px;
+            width: 100%;
+        }
+        .carousel-inner {
+            position: relative;
+        }
+        .title-news-carousel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 32px;
+            line-height: 32px;
+            background-color: #036;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <input hidden id="current-user-id" type="text" th:value="${currentUser != null ? currentUser.id : 0}">
+    <input hidden id="current-role-user-id" type="text" th:value="${currentUser != null ? currentUser.roles[0].id : 0}">
+    
+    <div class="intro-lasted-news">
+        <span class="label-intro-lasted-news">Mới nhất</span>
+        <marquee th:id="'news-latest-' + ${newsLatest != null ? newsLatest.id : '0'}"
+                 th:text="${newsLatest != null ? newsLatest.title : 'Chưa có tin tức'}" behavior="scroll"
+                 onmouseover="this.stop()" direction="left" onmouseout="this.start()" class="marquee-news">
+        </marquee>
+    </div>
+    
+    <div class="container-body">
+        <div class="new-event">
+        
+        </div>
+        <div class="overview">
+            <div class="overview-news">
+                <div class="container_banner">
+                    <div id="carouselExampleIndicators" class="carousel slide"
+                         data-ride="carousel">
+                        
+                        <div class="carousel-inner">
+                            <div th:each="news, iter : ${listTop5NewsLatest}" th:class="${iter.index} == 0 ? 'carousel-item active' : 'carousel-item'">
+                                <img class="d-block" th:src="${news.urlImage}" alt="First slide">
+                                <span class="title-news-carousel" th:text="${news.title}"></span>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators"
+                           role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators"
+                           role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="wrap-list-news">
+                    <div class="title-list-news">
+                        HOẠT ĐỘNG CỦA LÃNH ĐẠO ĐẢNG, NHÀ NƯỚC, CHÍNH PHỦ
+                    </div>
+                    <div class="list-news">
+                        <div th:attr="value=${news.seo}" th:each="news : ${listTop5NewsLatest}" class="news" th:text="${news.title}">
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="overview-post">
+                <div class="title-wrap-post">
+                    <img th:src="@{/custom/common/img/la_co_dang/la_co_dang.jpg}">
+                    <div class="title-title-wrap-post">Các bài thảo luận mới nhất</div>
+                </div>
+                <div class="list-post">
+                    <div th:id="${post.id}" th:value="${post.seo}" th:each="post : ${listTop5Post}" class="post" th:text="${post.title}">
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="intro-e-government">
+            <h6 class="label-intro-e-government">Chính phủ điện tử mang lại tiện ích gì?</h6>
+            <div class="list-intro-e-government">
+                <div class="intro-e-government-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="wrap-intro-item">
+                        <span class="title-intro-item">Tiết kiệm thời gian</span>
+                        <div class="content-intro-item">Mọi tiện ích được thực hiện chỉ với vài thao tác đơn giản.</div>
+                    </div>
+                </div>
+                <div class="intro-e-government-item">
+                    <i class="fas fa-question-square"></i>
+                    <div class="wrap-intro-item">
+                        <span class="title-intro-item">Giải đáp thắc mắc</span>
+                        <div class="content-intro-item">Mọi thắc mắc đều được giải quyết nhanh chóng, công khai, minh bạch.</div>
+                    </div>
+                </div>
+                <div class="intro-e-government-item">
+                    <i class="fad fa-laptop"></i>
+                    <div class="wrap-intro-item">
+                        <span class="title-intro-item">Luôn cập nhật</span>
+                        <div class="content-intro-item">Mọi vấn đề bàn luận được cập nhật liên tục. Mọi người có thể tham gia đóng góp ý kiến.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-page-news">
+            <div class="list-group-news-by-field">
+                <div th:each="data : ${listDataFieldAndNews}" class="group-news">
+                    <div class="wrap-header-field">
+                        <div class="wrap-header-field-left">
+                            <span class="big-field" th:text="${data.field.name}"></span>
+                            <div th:each="subField : ${data.listSubField}" class="list-sub-field">
+                                <span th:text="${subField.name}"></span>
+                            </div>
+                        </div>
+                        <div class="view-detail-news">
+                            XEM TIẾP
+                        </div>
+                    </div>
+            
+                    <div class="wrap-news">
+                        <div class="news-col1-and-col2">
+                            <div class="news-col1">
+                                <img th:src="${data.newsLatest.urlImage}">
+                                <div class="title-news-col1" th:text="${data.newsLatest.title}">
+                                
+                                </div>
+                            </div>
+                            <div class="news-col2">
+                                <img th:src="${data.newsLatestTop2.urlImage}">
+                                <div class="title-news-col2" th:text="${data.newsLatestTop2.title}"></div>
+                                <div class="intro-news-col2" th:utext="${data.newsLatestTop2.contentParse}"></div>
+                            </div>
+                        </div>
+                        <div class="list-news-col3">
+                            <div th:each="news : ${data.listNews}" class="news-title" th:text="${news.title}">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wrap-response-citizen">
+                <div class="title-response-citizen">
+                    Trả lời công dân
+                </div>
+                <div class="content-response-citizen">
+                    <div class="response-citizen-lasted">
+                        <img th:src="@{/custom/common/img/image_news/chitrahotro4-11-2021.jpg}">
+                        <div class="title-response-citizen-lasted">Cà Mau phản hồi kiến nghị về việc chi hỗ trợ sai đối tượng</div>
+                    </div>
+                    <ul class="list-response-citizen">
+                        <li>Điều kiện hưởng lương theo ngạch giáo viên THCS</li>
+                        <li>Tiếp thu kiến nghị về bất cập trong tiêu chuẩn...</li>
+                        <li>Điều kiện, hồ sơ chuyển đất trồng cây lâu năm...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+</div>
+</body>
+</html>

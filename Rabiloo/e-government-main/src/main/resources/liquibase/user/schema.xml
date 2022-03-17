@@ -1,0 +1,39 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_table_user" author="namtg">
+        <createTable tableName="user">
+            <column name="id" type="int(11)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name_avatar" type="varchar(200)"/>
+            <column name="url_avatar" type="varchar(200)"/>
+            <column name="name" type="varchar(200)"/>
+            <column name="email" type="varchar(500)"/>
+            <column name="password" type="varchar(500)"/>
+            <column name="phone" type="varchar(20)"/>
+            <column name="birthday" type="DATE"/>
+            <column name="gender" type="tinyint" defaultValue="1"/>
+            <column name="address" type="text"/>
+
+            <column name="status" type="tinyint" defaultValue="1"/>
+            <column name="is_deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="updated_time" type="DATETIME"/>
+            <column name="created_time" type="DATETIME"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append
+                    value="ENGINE=INNODB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_520_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="create_table_user_role" author="namtg">
+        <createTable tableName="user_role">
+            <column name="user_id" type="int(11)"/>
+            <column name="role_id" type="int(11)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

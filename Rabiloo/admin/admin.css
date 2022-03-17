@@ -1,0 +1,214 @@
+html, body{
+    margin: 0;
+}
+
+body{
+    position: relative;
+}
+
+.header{
+    position: relative;
+}
+.profile-tab{
+    position: absolute;
+    top: 48px;
+    right: 0;
+    min-width: 13%;
+    background-color: #ddd;
+}
+.profile-tab .profile-sub-tab{
+    padding: 12px 0;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #eee;
+}
+
+.profile-tab .profile-sub-tab:hover{
+    background-color: #eee;
+}
+
+.profile-tab .profile-sub-tab a{
+    text-decoration: none;
+    text-decoration-color: none;
+    color: rgb(0,0,238);
+    /* padding: 12px 50px; */
+}
+
+
+.header-nav{
+    height: 48px;
+    width: 100%;
+    background-color: #ccc;
+    display: flex;
+}
+
+.header-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1.3;
+}
+.header-content{
+    flex: 7;
+    background-color: #ddd;
+}
+
+.header-list-icon{
+    flex: 2;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.header-icon-i{
+    padding: 4px 18px;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    color: blue;
+}
+
+.header-icon-i:hover{
+    background-color: #ddd;
+    opacity: 0.6;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.body{
+    display: flex;
+    height: 100vh;
+}
+.side-bar{
+    background-color: #eee;
+    flex: 1.3;
+    height: 100vh;
+    position: relative;
+}
+
+.side-bar .admin-page{
+    position: absolute;
+    width: 90%;
+    right: 0;
+    top: 10vh;
+}
+
+.admin-page .side-bar-selector{
+    padding: 16px 8px;
+}
+
+.admin-page .side-bar-selector a{
+    color: #000;
+    text-decoration: none;
+}
+
+.admin-page .side-bar-selector:hover{
+    background-color: #ccc;
+    cursor: pointer;
+}
+.content{
+    flex: 9;
+}
+
+.is-select{
+    background-color: #fff;
+    color: blue;
+}
+
+.content h1{
+    padding: 24px 64px;
+}
+
+
+
+
+
+
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #ccc;
+}
+
+th{
+    background-color: #333;
+    color: #fff
+}
+
+table, th,td{
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 16px;
+    min-width: 100px;
+}
+
+th:last-child{
+    min-width: 150px;
+}
+
+
+
+
+
+
+/* detail page  */
+.detail-page{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-page-container{
+    background-color: #fff;
+    width: 40%;
+    height: 55vh;
+}
+
+.detail-page-container  .detail-title{
+    text-align: center;
+    padding: 24px 0;
+}
+
+.detail-page-container .detail-form{
+    padding: 12px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-form-input{
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-form-input label{
+    padding: 12px;
+    flex:2;
+    line-height: 30px;
+}
+
+.detail-form-input input{
+    flex:4 ;
+    margin: 8px;
+    line-height: 1;
+}
+
+.detail-form-button{
+    margin : 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.detail-form-button button{
+    padding: 8px 16px;
+    /* background-color: ; */
+    max-width: 70px;
+}

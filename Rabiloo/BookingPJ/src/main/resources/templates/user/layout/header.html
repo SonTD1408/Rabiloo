@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <header class="header" th:fragment="header">
+        <style>
+            .header-body{
+                min-height: 60px;
+                background-color: #fff;
+                display: flex;
+                justify-content: center;
+                font-size: 18px;
+                z-index: 10;
+            }
+            .header-row{
+                width: 80%;
+                display: flex;
+                justify-content: space-between;
+                position: fixed;
+                top: 0;
+                z-index: 10;
+            }
+            .header-ul{
+                margin: 0px;
+                list-style-type: none;
+                display: flex;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+            }
+
+            .header-ul li{
+                margin: 0 10px;
+                display: flex;
+                align-items: center;
+                min-height: 60px;
+            }
+
+            .header-ul a{
+                text-decoration: none;
+                color: #000;
+            }
+            .header-ul a:hover{
+                color: blue;
+            }
+
+            .header-hotline{
+                padding: 8px;
+                border: 1px solid rgb(192,192,192);
+            }
+
+            .header-hotline:hover{
+                background-color: #ccc;
+            }
+
+            .header-login-button{
+                background-color: #0060c4;
+                padding: 4px 8px;
+                border: 1px solid #1890ff;
+                font-size: 16px;
+                font-family: 'Times New Roman', Times, serif;
+                color: #fff;
+                border-radius: 4px;
+            }
+
+            .header-login-button:hover{
+                background-color: #40a9ff;
+            }
+
+            .header-ul li:last-child{
+                position: relative;
+            }
+            .header-ul li .logout-btn{
+                background-color: #ccc;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                height: 28px;
+                width: 100px;
+                text-align: center;
+            }
+            .header-ul li .logout-btn:hover{
+                opacity: 0.6;
+                cursor: pointer;
+            }
+
+            .header-logo{
+                display: flex;
+                align-items: center;
+            }
+        </style>
+        <div class="header-body">
+            <div class="header-row">
+                <div class="header-logo">
+                    <img th:src="@{/custom/user/img/logo/logo.svg}" alt="logo" >
+                </div>
+                <div class="header-content">
+                    <ul class="header-ul">
+                        <li><a href="">Thuê xe</a></li>
+                        <li><a href="" >Xe Limousine</a></li>
+                        <li><a href=" ">Quản lí đơn hàng</a></li>
+                        <li><a href="agency/register">Trở thành đối tác</a></li>
+                        <li><a class="header-hotline" href=""><i class="fa-solid fa-phone"></i> Hotline</a></li>
+                        <li><button th:classappend="${name}=='null' ? 'no-login' : 'login'" class="header-login-button" type="button" th:switch="${name}">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <span th:text="${name}=='null' ? 'Đăng nhập' : ${name}"></span>
+                            </button>
+                            <div id="logout" style="display: none" class="logout-btn"><a href="/logout">Logout</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

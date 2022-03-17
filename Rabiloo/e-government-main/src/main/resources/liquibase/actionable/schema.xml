@@ -1,0 +1,30 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_table_actionable" author="namtg">
+        <createTable tableName="actionable">
+            <column name="id" type="int(11)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="user_id" type="int(11)"/>
+
+            <column name="is_manage_post" type="boolean" defaultValueBoolean="false"/>
+            <column name="is_manage_comment_post" type="boolean" defaultValueBoolean="false"/>
+            <column name="is_manage_conclusion_post" type="boolean" defaultValueBoolean="false"/>
+
+            <column name="is_manage_field" type="boolean" defaultValueBoolean="false"/>
+            <column name="is_manage_reason_denied_comment" type="boolean" defaultValueBoolean="false"/>
+            <column name="is_manage_news" type="boolean" defaultValueBoolean="false"/>
+
+        </createTable>
+        <modifySql dbms="mysql">
+            <append
+                    value="ENGINE=INNODB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_520_ci"/>
+        </modifySql>
+    </changeSet>
+
+
+</databaseChangeLog>

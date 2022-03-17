@@ -1,0 +1,63 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert_table_sub_field" author="namtg">
+        <!-- Văn hóa -->
+        <insert tableName="sub_field">
+            <column name="id" value="1"/>
+            <column name="field_id" value="1"/>
+            <column name="name" value="Thể thao"/>
+        </insert>
+        <insert tableName="sub_field">
+            <column name="id" value="2"/>
+            <column name="field_id" value="1"/>
+            <column name="name" value="Du lịch"/>
+        </insert>
+
+        <!-- Xã hội -->
+        <insert tableName="sub_field">
+            <column name="id" value="3"/>
+            <column name="field_id" value="2"/>
+            <column name="name" value="Pháp luật"/>
+        </insert>
+        <insert tableName="sub_field">
+            <column name="id" value="4"/>
+            <column name="field_id" value="2"/>
+            <column name="name" value="Sức khỏe"/>
+        </insert>
+        <insert tableName="sub_field">
+            <column name="id" value="5"/>
+            <column name="field_id" value="2"/>
+            <column name="name" value="Đời sống"/>
+        </insert>
+
+        <!-- Kinh tế -->
+        <insert tableName="sub_field">
+            <column name="id" value="6"/>
+            <column name="field_id" value="3"/>
+            <column name="name" value="Tài chính"/>
+        </insert>
+        <insert tableName="sub_field">
+            <column name="id" value="7"/>
+            <column name="field_id" value="3"/>
+            <column name="name" value="Thị trường"/>
+        </insert>
+
+        <!-- Chính trị -->
+        <insert tableName="sub_field">
+            <column name="id" value="8"/>
+            <column name="field_id" value="4"/>
+            <column name="name" value="Thời sự"/>
+        </insert>
+        <insert tableName="sub_field">
+            <column name="id" value="9"/>
+            <column name="field_id" value="4"/>
+            <column name="name" value="Đối ngoại"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

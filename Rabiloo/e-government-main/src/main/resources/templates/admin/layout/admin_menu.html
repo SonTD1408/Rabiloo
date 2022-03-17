@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+
+<body>
+<div th:fragment="menu(screen)">
+    
+    <div class="left-menu left-menu-active">
+        <div class="header-left-menu clearfix">
+            <span id="icon_menu">
+                <i class="fa fa-arrow-left fa-2x menu-des"></i>
+                <i class="fa fa-arrow-right fa-2x menu-des d-none"></i>
+            </span>
+        </div>
+        <div class="block-menu block-menu-1">
+            <div class="control-block-menu">
+                <i class="fa fa-server icon-active"></i>
+                <span style="font-size: 12px">Tổng quan</span>
+                <i class="fa fa-angle-double-down block-icon"></i>
+            </div>
+            <a href="/admin/home">
+                <div th:class=" ${screen} == 'home' ?  'menu active-menu' : 'menu not-active-menu' ">
+                    <i class="fa fa-info"></i>
+                    <span>Home</span>
+                </div>
+            </a>
+        
+        </div>
+        
+        <div class="block-menu block-menu-2">
+            <div class="control-block-menu">
+                <i class="fa fa-server icon-active"></i>
+                <span style="font-size: 12px">Quản lý người dùng</span>
+                <i class="fa fa-angle-double-down block-icon"></i>
+            </div>
+            <a href="/admin/my_profile">
+                <div th:class=" ${screen} == 'my_profile' ?  'menu active-menu' : 'menu not-active-menu' ">
+                    <i class="fa fa-info"></i>
+                    <span>Cá nhân</span>
+                </div>
+            </a>
+            <a th:if="${isGovernment}" href="/admin/user">
+                <div th:class=" ${screen} == 'manage_user' ?  'menu active-menu' : 'menu not-active-menu' ">
+                    <i class="fa fa-info"></i>
+                    <span>Danh sách người dùng</span>
+                </div>
+            </a>
+        </div>
+        
+        <div class="block-menu block-menu-3">
+            <div class="control-block-menu">
+                <i class="fa fa-server icon-active"></i>
+                <span style="font-size: 12px">Quản lý lĩnh vực</span>
+                <i class="fa fa-angle-double-down block-icon"></i>
+            </div>
+            <a href="/admin/field">
+                <div th:class=" ${screen} == 'field' ?  'menu active-menu' : 'menu not-active-menu' ">
+                    <i class="fa fa-info"></i>
+                    <span>Danh sách lĩnh vực</span>
+                </div>
+            </a>
+        </div>
+        
+        <div class="block-menu block-menu-4">
+            <div class="control-block-menu">
+                <i class="fa fa-server icon-active"></i>
+                <span style="font-size: 12px">Quản lý bài viết</span>
+                <i class="fa fa-angle-double-down block-icon"></i>
+            </div>
+            <a href="/admin/discussion_post">
+                <div th:class=" ${screen} == 'discussion_post' ?  'menu active-menu' : 'menu not-active-menu' ">
+                    <i class="fa fa-info"></i>
+                    <span>Danh sách bài thảo luận</span>
+                </div>
+            </a>
+        </div>
+        
+        <div class="block-menu block-menu-5">
+            <div class="control-block-menu">
+                <i class="fa fa-server icon-active"></i>
+                <span style="font-size: 12px">Quản lý bình luận</span>
+                <i class="fa fa-angle-double-down block-icon"></i>
+            </div>
+            <a href="/admin/reason_denied_comment">
+                <div th:class=" ${screen} == 'reason_denied_comment' ?  'menu active-menu' : 'menu not-active-menu' ">
+                    <i class="fa fa-info"></i>
+                    <span>Danh sách lý do từ chối</span>
+                </div>
+            </a>
+        </div>
+        
+        <div class="block-menu block-menu-6">
+            <div class="control-block-menu">
+                <i class="fa fa-server icon-active"></i>
+                <span style="font-size: 12px">Quản lý tin tức</span>
+                <i class="fa fa-angle-double-down block-icon"></i>
+            </div>
+            <a href="/admin/news">
+                <div th:class=" ${screen} == 'news' ?  'menu active-menu' : 'menu not-active-menu' ">
+                    <i class="fa fa-info"></i>
+                    <span>Danh sách tin tức</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

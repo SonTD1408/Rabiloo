@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header-nav">
+            <div class="header-logo">
+                <img src="https://storage.googleapis.com/fe-production/icon_vxr_full.svg" alt="logo">
+            </div>
+            <div class="header-content"></div>
+            <div class="header-list-icon">
+                <div class="header-icon-i">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="header-icon-i click-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;" class="profile-tab">
+            <div class="profile-sub-tab">
+                <a href="">Profile</a>
+            </div>
+            <div class="profile-sub-tab">
+                <a href="/home">Go to home page</a>
+            </div>
+            <div class="profile-sub-tab">
+                <a href="">abc</a>
+            </div>
+            <div class="profile-sub-tab">
+                <a href="">xyz</a>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                $(".click-avatar").click(function(){
+                    $(".profile-tab").toggle(300);
+                });
+            });
+        </script>
+    </header>
+
+    <div class="body">
+        <div class="side-bar">
+            <div class="admin-page">
+                <div class="side-bar-selector">Dashboard</div>
+                <div class="side-bar-selector">Agency Manager</div>
+                <div class="side-bar-selector">All Car</div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-table">
+                <h1>Company information </h1>
+                <table>
+                    <thead>
+                        <th>Company id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>User</th>
+                        <th>Password</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="detail-page">
+        <div class="detail-page-container">
+            <div class="detail-title">
+                <h1>Detail agency</h1>
+            </div>
+            <div class="detail-form">
+                <div class="detail-form-input">
+                    <label for="">Company name: </label>
+                    <input type="text"/>
+                </div>
+                <div class="detail-form-input">
+                    <label for="">Email </label>
+                    <input type="text"/>
+                </div>
+                <div class="detail-form-input">
+                    <label for="">Phone number: </label>
+                    <input type="text"/>
+                </div>
+                <div class="detail-form-input">
+                    <label for="">Address </label>
+                    <input type="text"/>
+                </div>
+                <div class="detail-form-input">
+                    <label for="">User name </label>
+                    <input type="text"/>
+                </div>
+                <div class="detail-form-input">
+                    <label for="">Password </label>
+                    <input type="text"/>
+                </div>
+                <div class="detail-form-button">
+                    <button type="button">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

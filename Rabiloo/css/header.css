@@ -1,0 +1,217 @@
+body{
+    margin: 0;
+}
+.header-body{
+    min-height: 60px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+}
+.header-row{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+.header-ul{
+    margin: 0px;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.header-ul li{
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+}
+
+.header-ul a{
+    text-decoration: none;
+    color: #000;
+}
+.header-ul a:hover{
+    color: blue;
+}
+
+.header-hotline{
+    padding: 8px;
+    border: 1px solid rgb(192,192,192);
+}
+
+.header-hotline:hover{
+    background-color: #ccc;
+}
+
+.header-login-button{
+    background-color: #0060c4;
+    padding: 4px 8px;
+    border: 1px solid #1890ff;
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #fff;
+    border-radius: 4px;
+}
+
+
+/* body  */
+#body-content{
+    padding-top: 50%;
+    background: url("https://static.vexere.com/production/banners/813/Untitled-design-(1).png") top center / cover no-repeat;
+    display: flex;
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif;
+    position: relative;
+}
+
+.body-content-banner{
+    width: 80%;
+    position: absolute;
+    top: 30%;
+}
+
+#body-content .body-banner-title{
+    color: #fff;
+    text-align: center;
+}
+
+.body-banner-search{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.search-input{
+    width: 85%;
+    display: flex;
+}
+
+.search-input .search-from{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.search-input .search-to{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.search-input .search-date{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.search-input .input-data{
+    height: 48px;
+    /* width: 100%; */
+    font-size: 18px;
+    border: 0px solid #fff;
+    padding: 5px 12px 5px 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+.search-input .input-data:focus{
+    outline: none;
+}
+
+.icon-search{
+    font-size: 24px;
+    padding: 0 16px;
+    color: rgb(0 122 255);
+}
+.search-find{
+    width: 15%;
+}
+
+.search-find .button-submit{
+    background-color: rgb(255 197 0);
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* login form  */
+.login-form{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    display: none;
+}
+
+.login-form-open{
+    display: flex;
+}
+
+.login-form-modal{
+    width: 520px;
+    position: relative;
+    top: 100px;
+    padding: 16px;
+    background-color: #fff;
+    height: 400px;
+}
+
+.modal-header{
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 8px 0;
+}
+
+.modal-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-form-input{
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    outline: none;
+}
+
+.modal-form-input:focus{
+    border: 1px solid #1890ff;
+}
+
+.modal-form span{
+    text-align: center;
+    flex: 1;
+    display: table;
+}
+.modal-form-submit-btn{
+    font-family: 'Times New Roman', Times, serif;
+    padding: 8px 0;
+    width: 100%;
+    border: 2px solid #1890ff;
+    background-color: #1890ff;
+    font-size: 18px;
+    color: #fff;
+}
+
+.modal-close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px 16px;
+    font-size: 24px;
+}
+
+.modal-close:hover{
+    background-color: #1890ff;
+}

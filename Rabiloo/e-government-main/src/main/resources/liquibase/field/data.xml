@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert_table_field" author="namtg">
+        <insert tableName="field">
+            <column name="id" value="1"/>
+            <column name="name" value="Văn hóa"/>
+        </insert>
+        <insert tableName="field">
+            <column name="id" value="2"/>
+            <column name="name" value="Xã hội"/>
+        </insert>
+        <insert tableName="field">
+            <column name="id" value="3"/>
+            <column name="name" value="Kinh tế"/>
+        </insert>
+        <insert tableName="field">
+            <column name="id" value="4"/>
+            <column name="name" value="Chính trị"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

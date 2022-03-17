@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="insert_table_reason_denied_comment" author="namtg">
+        <insert tableName="reason_denied_comment">
+            <column name="id" value="1"/>
+            <column name="content" value="Không phù hợp với mục tiêu bài viết"/>
+        </insert>
+
+        <insert tableName="reason_denied_comment">
+            <column name="id" value="2"/>
+            <column name="content" value="Hình ảnh hoặc từ ngữ không đúng thuần phong mỹ tục"/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>

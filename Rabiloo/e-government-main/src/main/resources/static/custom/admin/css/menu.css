@@ -1,0 +1,57 @@
+.left-menu{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    background-color: #222C3C;
+    color: #ffffff;
+    height: 100%;
+    overflow-y: auto;
+}
+.left-menu::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #cecece;
+}
+.left-menu::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #cecece;
+}
+.left-menu::-webkit-scrollbar-thumb
+{
+    background-color: #cecece;
+}
+.left-menu p{margin: 0px !important;}
+.left-menu-active{
+    width: 220px;
+}
+.left-menu-not-active{
+    width: 60px;
+}
+.header-left-menu{line-height: 65px;text-align: center; height: 65px;}
+.header-left-menu #icon_menu{position: absolute; right: 5px; top: -5px; cursor: pointer}
+.block-menu{ margin-bottom: 15px; background-color: #3B4350; padding: 10px 0px;}
+.block-menu .control-block-menu {cursor: pointer; margin-bottom: 8px;}
+.block-menu .control-block-menu span{font-size: 12px;}
+.block-menu .fa-server{padding-left: 10px;}
+
+
+/*menu*/
+.block-menu .menu{line-height: 45px; padding-left: 20px; cursor: pointer; color: #ffffff !important;}
+.block-menu .menu-mini{padding-left: 20px !important;}
+.block-menu .menu:hover{opacity: 1; font-size: 13px;}
+.block-menu .not-active-menu{opacity: 0.5; font-size: 11px;}
+.block-menu .active-menu{opacity: 1;font-size: 12px; background-color: darkgrey}
+.block-menu i{margin-right: 10px;}
+.block-menu .block-icon{float: right; margin-right: 20px; margin-top: 3px;}
+.block-menu .block-icon:hover{font-size: 20px; cursor: pointer;}
+/*sub menu*/
+.block-menu .sub-menu{line-height: 40px; padding-left: 50px; cursor: pointer;color: #ffffff !important;}
+.block-menu .sub-menu:hover{opacity: 1; font-size: 14px;}
+.block-menu .not-active-sub-menu{opacity: 0.5; font-size: 12px;}
+.block-menu .has-sub-menu:hover{opacity: 1; font-size: 16px;}
+.has-sub-menu{display: inline-block; width: 100%;}
+.block-icon-sub-menu{margin-top: 15px;float: right; margin-right: 20px !important;}
+.block-icon-sub-menu:hover{font-size: 20px; cursor: pointer;}
+
+

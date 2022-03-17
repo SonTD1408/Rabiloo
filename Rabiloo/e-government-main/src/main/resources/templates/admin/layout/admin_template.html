@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title layout:title-pattern="$CONTENT_TITLE"></title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+          crossorigin="anonymous"/>
+    
+    <!-- Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.css"/>
+    
+    <!-- Custom css -->
+    <link rel="stylesheet" th:href="@{/custom/common/css/base.css}">
+    <link rel="stylesheet" th:href="@{/custom/common/css/component.css}">
+    <link rel="stylesheet" th:href="@{/custom/admin/css/header.css}"/>
+    <link rel="stylesheet" th:href="@{/custom/admin/css/menu.css}"/>
+    
+    
+    <!-- DatetimePicker css -->
+    <link rel="stylesheet" href="/libs/bootstrap-datetimepicker.min.css"/>
+    
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Validate jquery -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"
+            type="text/javascript"></script>
+    
+    <!-- VueJs -->
+    <script src="/libs/vue.min.js"></script>
+    
+    <!-- Moment js -->
+    <script src="/libs/moment.min.js" type="text/javascript"></script>
+    
+    <!-- Ckeditor -->
+    <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    
+    <!-- Component custom js -->
+    <script src="/custom/common/js/component.js" type="text/javascript"></script>
+    
+    <!-- Config date -->
+    <script src="/custom/common/js/config-date.js" type="text/javascript"></script>
+    
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/libs/select2/select2.css"/>
+    <script src="/libs/select2/select2.js" type="text/javascript"></script>
+    
+    <!-- Date utils -->
+    <script src="/custom/common/js/date_utils.js" type="text/javascript"></script>
+    
+    <!-- Custom js -->
+    <script src="/custom/admin/js/menu.js" type="text/javascript"></script>
+    <script src="/custom/admin/js/header/header.js" type="text/javascript"></script>
+    <script src="/custom/admin/js/header/header_confirm_comment.js" type="text/javascript"></script>
+    <script src="/custom/common/js/change_password.js" type="text/javascript"></script>
+
+</head>
+<body>
+<!-- Import libs -->
+<div th:replace="common/component :: component"></div>
+<div th:replace="common/import_libs :: import_lib_datatable"></div>
+<div th:replace="common/import_libs :: import_lib_bootstrap_time"></div>
+<!---->
+
+<div id="overlay"></div>
+
+<div th:replace="admin/admin_modal_discussion_post :: modal_discussion_post"></div>
+
+<div th:replace="common/modal_change_password :: modal_change_password"></div>
+
+<header th:replace="admin/layout/admin_header :: header(${currentPage})"></header>
+
+<div th:replace="admin/layout/admin_menu :: menu(${currentPage})"></div>
+
+<section class="page-content" layout:fragment="content"></section>
+
+<input hidden type="text" id="is_manage_post" th:value="${actionable.managePost}">
+<input hidden type="text" id="is_manage_comment_post" th:value="${actionable.manageCommentPost}">
+<input hidden type="text" id="is_manage_conclusion_post" th:value="${actionable.manageConclusionPost}">
+<input hidden type="text" id="is_manage_field" th:value="${actionable.manageField}">
+<input hidden type="text" id="is_manage_reason_denied_comment" th:value="${actionable.manageReasonDeniedComment}">
+<input hidden type="text" id="is_manage_news" th:value="${actionable.manageNews}">
+
+</body>
+</html>

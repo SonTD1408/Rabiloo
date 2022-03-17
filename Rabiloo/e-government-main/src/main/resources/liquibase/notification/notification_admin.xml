@@ -1,0 +1,46 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_table_notification_admin" author="namtg">
+        <createTable tableName="notification_admin">
+            <column name="id" type="int(11)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_impact_id" type="int(11)"/>
+            <column name="type" type="varchar(200)"/>
+            <column name="comment_id" type="int(11)"/>
+            <column name="reply_comment_id" type="int(11)"/>
+            <column name="post_id" type="int(11)"/>
+
+            <column name="created_time" type="DATETIME"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append
+                    value="ENGINE=INNODB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_520_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="create_table_status_notification_admin" author="namtg">
+        <createTable tableName="status_notification_admin">
+            <column name="id" type="int(11)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="admin_id" type="int(11)"/>
+            <column name="notification_id" type="int(11)"/>
+
+            <column name="is_read" type="boolean" defaultValueBoolean="false"/>
+            <column name="is_watched" type="boolean" defaultValueBoolean="false"/>
+            <column name="is_hidden" type="boolean" defaultValueBoolean="false"/>
+
+        </createTable>
+        <modifySql dbms="mysql">
+            <append
+                    value="ENGINE=INNODB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_520_ci"/>
+        </modifySql>
+    </changeSet>
+
+
+</databaseChangeLog>

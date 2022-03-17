@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="side-bar" th:fragment="sideBar(currentPage)">
+        <div class="admin-page">
+            <div class="side-bar-selector" th:classappend="${currentPage}=='dashboard'? 'is-select':''">
+                <a href="/admin/home">Dashboard</a>
+            </div>
+            <div class="side-bar-selector" th:classappend="${currentPage}=='agencyManagement'? 'is-select':''">
+                <a href="/admin/agencyManagement">Agency Management</a>
+            </div>
+            <div class="side-bar-selector" th:classappend="${currentPage}=='AllCar'? 'is-select':''">
+                <a href="">All Car</a>
+            </div>
+            <div class="side-bar-selector" th:text="${currentPage}"></div>
+        </div>
+    </div>
+</body>
+</html>

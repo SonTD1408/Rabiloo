@@ -1,0 +1,199 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert_table_city" author="namtg">
+        <insert tableName="city">
+            <column name="name" value="An Giang"/>
+            <column name="key" value="An Giang"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Bình Dương"/>
+            <column name="key" value="Bình Dương"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Bình Định"/>
+            <column name="key" value="Bình Định"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Bạc Liêu"/>
+            <column name="key" value="Bạc Liêu"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Bắc Giang"/>
+            <column name="key" value="Bắc Giang"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Bắc Kạn"/>
+            <column name="key" value="Bắc Kạn"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Bắc Ninh"/>
+            <column name="key" value="Bắc Ninh"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Bến Tre"/>
+            <column name="key" value="Bến Tre"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Cao Bằng"/>
+            <column name="key" value="Cao Bằng"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Cà Mau"/>
+            <column name="key" value="Cà Mau"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Cần Thơ"/>
+            <column name="key" value="Cần Thơ"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Đà Nẵng"/>
+            <column name="key" value="Đà Nẵng"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Đà Lạt"/>
+            <column name="key" value="Đà Lạt"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Gia Lai"/>
+            <column name="key" value="Gia Lai"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hà Nội"/>
+            <column name="key" value="Hà Nội"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hồ Chí Minh"/>
+            <column name="key" value="Ho Chi Minh"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hà Giang"/>
+            <column name="key" value="Hà Giang"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hà Nam"/>
+            <column name="key" value="Hà Nam"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hà Tĩnh"/>
+            <column name="key" value="Hà Tĩnh"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hòa Bình"/>
+            <column name="key" value="Hòa Bình"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hưng Yên"/>
+            <column name="key" value="Hưng Yên"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hải Dương"/>
+            <column name="key" value="Hai Duong"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Hải Phòng"/>
+            <column name="key" value="Hải Phòng"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Khánh Hòa"/>
+            <column name="key" value="Khánh Hòa"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Kon Tum"/>
+            <column name="key" value="Kon Tum"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Lai Châu"/>
+            <column name="key" value="Lai Châu"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Long An"/>
+            <column name="key" value="Long An"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Lào Cai"/>
+            <column name="key" value="Lào Cai"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Lạng Sơn"/>
+            <column name="key" value="Lạng Sơn"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Nam Định"/>
+            <column name="key" value="Nam Định"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Ninh Bình"/>
+            <column name="key" value="Ninh Bình"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Phú Thọ"/>
+            <column name="key" value="Phú Thọ"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Quảng Ngãi"/>
+            <column name="key" value="Quảng Ngãi"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Quảng Trị"/>
+            <column name="key" value="Quảng Trị"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Sóc Trăng"/>
+            <column name="key" value="Sóc Trăng"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Sơn La"/>
+            <column name="key" value="Sơn La"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Thanh Hóa"/>
+            <column name="key" value="Thanh Hóa"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Thái Bình"/>
+            <column name="key" value="Thái Bình"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Thái Nguyên"/>
+            <column name="key" value="Thái Nguyên"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Thừa Thiên Huế"/>
+            <column name="key" value="Huế"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Trà Vinh"/>
+            <column name="key" value="Trà Vinh"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Tuyên Quang"/>
+            <column name="key" value="Tuyên Quang"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Tây Ninh"/>
+            <column name="key" value="Tây Ninh"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Vĩnh Long"/>
+            <column name="key" value="Vĩnh Long"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Vĩnh Phúc"/>
+            <column name="key" value="Vĩnh Phúc"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Vũng Tàu"/>
+            <column name="key" value="Vũng Tàu"/>
+        </insert>
+        <insert tableName="city">
+            <column name="name" value="Yên Bái"/>
+            <column name="key" value="Yên Bái"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

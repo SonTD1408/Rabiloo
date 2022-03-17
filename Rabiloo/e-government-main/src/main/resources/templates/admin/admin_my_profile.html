@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{admin/layout/admin_template}"
+      th:with="currentPage='my_profile'">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý</title>
+    
+</head>
+<body>
+<div layout:fragment="content">
+    
+    <div th:replace="common/my_profile :: my_profile"></div>
+    
+</div>
+</body>
+</html>

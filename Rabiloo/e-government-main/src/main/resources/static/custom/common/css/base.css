@@ -1,0 +1,139 @@
+:root {
+    --primary-color: red;
+    --primary-bg-color: #fdd985;
+    --primary-color-admin: #3B4350;
+    --primary-hover-color: #c4411e;
+}
+
+h1, h2, h3, h4, h5, h6, ul, li, body, p {
+    padding: 0;
+    margin: 0;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    border: none;
+}
+
+.btn.disabled, .btn:disabled {
+    cursor: not-allowed;
+}
+
+input:focus {
+    outline: none;
+}
+
+select:disabled {
+    color: black;
+    opacity: 1;
+    background-color: #e9ecef;
+}
+
+/* Custom */
+.label-form {
+    margin-bottom: 0;
+}
+
+.form-control {
+    height: 36px;
+}
+
+.error-message, .error-message-other {
+    color: red;
+    font-size: 12px;
+    font-weight: 600;
+}
+.modal-open {
+    padding-right: 0 !important;
+}
+
+
+/* Container */
+.page-content {
+    padding: 20px 20px 0px 230px;
+}
+
+.page-content-big {
+    padding-left: 80px !important;
+}
+
+/* Button */
+.btn-primary {
+    background-color: #3B4350;
+    border: #3B4350;
+    box-shadow: none;
+}
+
+.btn-primary:hover {
+    background-color: #3B4350;
+    border: #3B4350;
+}
+
+.btn-primary:focus {
+    background-color: #3B4350;
+    border: #3B4350;
+    box-shadow: none;
+}
+
+/* Modal */
+.modal-header {
+    justify-content: left;
+}
+
+
+/* Pagination */
+.page-link {
+    color: black;
+}
+
+.page-link:hover {
+    color: var(--primary-color);
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-bg-color);
+    border-color: var(--primary-bg-color);
+    color: black;
+}
+
+/* overlay */
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 999; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+/* start modal show large image */
+#show_image_popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    transform: translate(-50%, -50%); /*  make center   */
+    display: none;
+}
+#show_image_popup img{
+    max-width: 400px;
+    height: auto;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+}
+/* end modal show large image */

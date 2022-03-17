@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{user/layout/template}" xmlns:th="http://www.w3.org/1999/xhtml"
+      th:with="currentPage='detail_news'">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    
+    <script src="/custom/user/js/news/detail_news.js" type="text/javascript"></script>
+    
+    <style>
+        /* start marquee */
+        .intro-lasted-news {
+            height: 52px;
+            width: 100%;
+            padding: 0 160px;
+            border-top: 1px solid var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .label-intro-lasted-news {
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        
+        .marquee-news {
+            cursor: pointer;
+            height: 100%;
+            line-height: 51px;
+        }
+        
+        /* end marquee */
+        
+        .container-body {
+            background-color: #e2e8f0;
+            padding: 0 160px;
+            position: relative;
+        }
+        
+        .wrap-content {
+            display: flex;
+            background-color: white;
+            padding: 16px;
+            min-height: 100vh;
+        }
+        
+        .col-main {
+            flex: 0.8;
+        }
+        
+        .col-extra {
+            flex: 0.2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .title-news {
+            margin-bottom: 80px;
+            margin-top: 8px;
+        }
+        
+        .body-news {
+            border-top: 1px solid #ccc;
+        }
+        
+        .content-news {
+            font-size: 13px;
+        }
+        
+        /* icon utils */
+        .wrap-utils {
+            position: fixed;
+            top: 258px;
+            left: 100px;
+        }
+        
+        .wrap-up-down-font-size {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 100px;
+            border-radius: 24px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        
+        .wrap-icon-print {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            margin-bottom: 8px;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        .wrap-icon-font-size {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        
+        .wrap-weather {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .wrap-input-search-city {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 42px;
+            background-color: #f7f7f8;
+            padding-left: 8px;
+        }
+        .drop-down-list-city {
+            padding: 4px;
+            cursor: pointer;
+        }
+        .input-search-city {
+            border: none;
+            width: 100%;
+            background-color: #f7f7f8;
+            font-size: 14px;
+        }
+        .wrap-list-city {
+            box-shadow: 0 0 24px rgb(0 0 0 / 16%);
+            border: 1px solid #e1e1f0;
+            position: relative;
+            top: 0;
+            right: 0;
+            z-index: 10;
+            transition: all .2s;
+        }
+        .list-city {
+            background-color: white;
+        }
+        .city {
+            height: 42px;
+            padding-left: 8px;
+            line-height: 42px;
+            border-bottom: 1px solid rgba(225,225,240,.5);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .temperature {
+            text-align: center;
+            padding-right: 12px;
+        }
+        .list-image-intro {
+            width: 100%;
+            margin-left: 16px;
+            margin-top: 100px;
+        }
+        .image-intro-item {
+            margin-top: 8px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .div-display-weather {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f7f7f8;
+            height: 42px;
+            width: 250px;
+            padding: 0 8px;
+        }
+    
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <input hidden id="current-user-id" type="text" th:value="${currentUser != null ? currentUser.id : 0}">
+    <input hidden id="current-role-user-id" type="text" th:value="${currentUser != null ? currentUser.roles[0].id : 0}">
+    
+    <div class="intro-lasted-news">
+        <span class="label-intro-lasted-news">Mới nhất</span>
+        <marquee th:id="'news-latest-' + ${newsLatest != null ? newsLatest.id : '0'}"
+                 th:text="${newsLatest != null ? newsLatest.title : 'Chưa có tin tức'}" behavior="scroll"
+                 onmouseover="this.stop()" direction="left" onmouseout="this.start()" class="marquee-news">
+        </marquee>
+    </div>
+    
+    <div class="container-body">
+        <div class="wrap-content">
+            <div id="full-news" class="col-main">
+                <span style="text-decoration: underline">Thứ tư, 9/2/2022</span>
+                <h1 class="title-news" th:text="${newsEntity.title}"></h1>
+                <div class="body-news">
+                    <div style="padding-top: 16px; padding-bottom: 24px; text-align: right; font-size: 12px;">
+                        <span th:text="${newsEntity.createdTimeStr}"></span>
+                    </div>
+                    <div class="content-news" th:utext="${newsEntity.content}">
+                    
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-extra">
+                <div id="weather" class="wrap-weather">
+                    <div class="div-display-weather">
+                        <span>{{citySelected}}</span>
+                        <div style="display: flex; align-items: center">
+                            <span class="temperature">{{temperature}}<sup>o</sup>C</span>
+                            <i class="fas fa-caret-down drop-down-list-city"></i>
+                        </div>
+                    </div>
+                    <div class="wrap-list-city hidden">
+                        <div class="wrap-input-search-city">
+                            <input v-model="keywordSearchCity" class="input-search-city" type="text" placeholder="Nhập tên tỉnh thành...">
+                        </div>
+                        <div class="list-city">
+                            <div v-for="city in listCityAfterFilter" :value="city.key" class="city">
+                                {{city.name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="list-image-intro">
+                    <div class="image-intro-item">
+                        <img th:src="@{/custom/common/img/intro_detail_news/intro_1.jpg}">
+                    </div>
+                    <div class="image-intro-item">
+                        <img th:src="@{/custom/common/img/intro_detail_news/intro_2.jpg}">
+                    </div>
+                    <div class="image-intro-item">
+                        <img th:src="@{/custom/common/img/intro_detail_news/intro_3.jpg}">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="wrap-utils">
+            <div class="wrap-icon-print">
+                <i class="fas fa-print"></i>
+            </div>
+            <div class="wrap-up-down-font-size">
+                <div class="wrap-icon-font-size plus-font-size">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <span>aA</span>
+                <div class="wrap-icon-font-size minus-font-size">
+                    <i class="fas fa-minus"></i>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+
+</div>
+</body>
+</html>

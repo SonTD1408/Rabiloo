@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="./themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+    <header class="header" th:fragment="header">
+        <div class="header-body">
+            <div class="header-row">
+                <div class="header-logo"></div>
+                <div class="header-content">
+                    <ul class="header-ul">
+                        <li><a href="">Thuê xe</a></li>
+                        <li><a href="" >Xe Limousine</a></li>
+                        <li><a href=" ">Quản lí đơn hàng</a></li>
+                        <li><a href="">Trở thành đối tác</a></li>
+                        <li><a class="header-hotline" href=""><i class="fa-solid fa-phone"></i> Hotline</a></li>
+                        <li><button class="header-login-button" type="button">Đăng nhập</button> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="body-content">
+        <div class="body-content-banner">
+            <div class="body-banner-title">
+                <h2>VeXeRe - Cam kết hoàn 150% nếu nhà xe không giữ vé</h2>
+            </div>
+
+            <form action="" method="post">
+                <div class="body-banner-search">
+                    <div class="search-input">
+                        <div class="search-from">
+                            <i class="icon-search ti-location-pin"></i>
+                            <input class="input-data" placeholder="Tỉnh, thành phô nơi đi" type="text"/>
+                        </div>
+                        <div class="search-to">
+                            <i class="icon-search ti-location-pin"></i>
+                            <input class="input-data" placeholder="Tỉnh, thành phô nơi đến" type="text"/>
+                        </div>
+                        <div class="search-date">
+                            <i class="icon-search ti-calendar"></i>
+                            <input class="input-data" placeholder="Ngày đi" type="date"/>
+                        </div>
+                    </div>
+                    <div class="search-find">
+                        <button class="button-submit" type="submit">Tìm Kiếm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="login-form">
+        <div class="login-form-modal">
+            <div class="modal-close"><i class="fa-solid fa-xmark"></i></div>
+            <div class="modal-header">Đăng nhập</div>
+            <div class="modal-content">
+                <form action="" method="post">
+                    <div class="modal-form">
+                        <label for="modal-input-user" class="modal-form-label">User</label><br>
+                        <input id="modal-input-user" type="text" class="modal-form-input"><br>
+                        <label for="modal-input-password" class="modal-form-label">Password</label><br>
+                        <input id="modal-input-password" type="text" class="modal-form-input"><br>
+                        <input class="modal-form-submit-btn" type="submit" value="Đăng nhập"><br>
+                        <span>hoặc</span><br>
+                        <button class="login-with-gg modal-form-submit-btn">Đăng nhập vói Google</button><br>
+                        <div class="modal-dk">Bạn chưa có tài khoản? <a href="#">Đăng ký</a></div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const closeBtn = document.querySelector(".modal-close");
+    const loginBtn  = document.querySelector(".header-login-button");
+    const modalLogin = document.querySelector(".login-form");
+    const loginFormModal = document.querySelector(".login-form-modal")
+
+    function openFormLogin(){
+        modalLogin.classList.add("login-form-open")
+    }
+
+    function closeFormLogin(){
+        modalLogin.classList.remove("login-form-open")
+    }
+
+    loginBtn.addEventListener('click', openFormLogin)
+    closeBtn.addEventListener('click', closeFormLogin)
+    modalLogin.addEventListener('click', closeFormLogin)
+    loginFormModal.addEventListener('click', function(even){
+        even.stopPropagation()
+    })
+    
+</script>
+</html>

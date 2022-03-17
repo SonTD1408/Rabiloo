@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{user/layout/template}" xmlns:th="http://www.w3.org/1999/xhtml"
+      th:with="currentPage='my_profile'">
+<head>
+    <meta charset="UTF-8">
+    <title>Cá nhân</title>
+    
+    <style>
+        .container-body {
+            background-color: #e2e8f0;
+            padding: 0 160px;
+        }
+    </style>
+
+</head>
+<body>
+<div layout:fragment="content">
+    
+    <div class="container-body">
+        <div style="background-color: white; padding: 16px; height: 100vh">
+            <div th:replace="common/my_profile :: my_profile"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

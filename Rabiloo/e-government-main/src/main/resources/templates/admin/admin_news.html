@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{admin/layout/admin_template}"
+      th:with="currentPage='news'">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý</title>
+
+    <script src="/custom/admin/js/news/list.js" type="text/javascript"></script>
+    <script src="/custom/admin/js/news/add.js" type="text/javascript"></script>
+
+    <style>
+        .select-field {
+            display: block;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 36px;
+            padding: 0 8px
+        }
+    </style>
+
+</head>
+<body>
+<div layout:fragment="content">
+
+
+    <div th:if="${actionable.manageNews}" style="margin-bottom: 10px;">
+        <button data-toggle="modal" data-target="#modal_add_news"
+                class="btn btn-primary btn-sm" id="btn-add">Thêm mới
+        </button>
+    </div>
+
+    <div style="float: right; display: flex; width: 70%; justify-content: flex-end;">
+        <div class="input-group" style="width: 40%; height: 32px; float: right">
+            <input style="height: 100%" class="form-control" type="text" id="search_news"
+                   placeholder="Tìm kiếm theo tiêu đề tin tức" autocomplete="off">
+            <div class="input-group-append" id="btn_search">
+                <span class="input-group-text amber lighten-3">
+                    <i style="font-size: 14px; cursor: pointer" class="fa fa-search text-grey"
+                       aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-content">
+        <table class="table responsive" id="news_table">
+            <thead>
+            <th style="width: 10% !important" scope="col" class="text-center">Lĩnh vực</th>
+            <th style="width: 10% !important" scope="col" class="text-center">Lĩnh vực cấp dưới</th>
+            <th style="width: 40% !important" scope="col" class="text-center">Tiêu đề</th>
+            <th style="width: 10% !important" scope="col" class="text-center">Ngày tạo</th>
+            <th style="width: 15% !important" th:if="${actionable.manageNews}" scope="col" class="text-center"></th>
+            </thead>
+        </table>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="modal_add_news" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div style="overflow-y: initial !important" class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tin tức</h5>
+                </div>
+
+                <div style="overflow-y: auto; max-height: calc(100vh - 200px)" class="modal-body">
+                    <div class="row">
+                        <form id="form-news" class="col-md-12">
+                            <div class="form-group">
+                                <label class="label-form">Lĩnh vực</label><sup style="color: red"> *</sup>
+                                <select :disabled="!!id" class="select-field" v-model="fieldId">
+                                    <option v-for="field in listField" :value="field.id">{{field.name}}</option>
+                                </select>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorField}">
+                                    Trường này là bắt buộc</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label-form">Lĩnh vực cấp dưới</label><sup style="color: red"> *</sup>
+                                <select :disabled="!!id" class="select-field" v-model="subFieldId">
+                                    <option v-for="subField in listSubField" :value="subField.id">{{subField.name}}</option>
+                                </select>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorSubField}">
+                                    Trường này là bắt buộc</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label-form">Tiêu đề</label><sup style="color: red"> *</sup>
+                                <input name="title" v-model="title" type="text" class="form-control"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="margin-bottom: 4px">Ảnh giới thiệu</label>
+                                <div class="image-intro" id="image-intro" style="display: flex; justify-content: space-between; align-items: center;">
+                                    <image-upload-component ref="image-intro"></image-upload-component>
+                                </div>
+                                <p :hidden="!isShowErrorImage" class="error-message-other">Trường này là bắt buộc</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label-form">Nội dung</label><sup style="color: red"> *</sup>
+                                <textarea id="textarea-content-news"></textarea>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorContent}">
+                                    Trường này là bắt buộc</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm" @click="save()">Lưu</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="modal_delete" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xóa tin tức?</h5>
+                </div>
+                <div class="modal-body" style="text-align: left">
+                    <h6 style="font-weight: 400">Bạn có chắc chắn muốn xóa tin tức này không?</h6>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Đóng</button>
+                    <button id="btn_submit_delete" type="button" class="btn btn-primary btn-sm">
+                        Xóa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

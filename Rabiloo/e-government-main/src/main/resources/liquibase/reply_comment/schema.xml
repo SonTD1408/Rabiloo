@@ -1,0 +1,39 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_table_reply_comment" author="namtg">
+        <createTable tableName="reply_comment">
+            <column name="id" type="int(11)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="int(11)"/>
+            <column name="comment_id" type="int(11)"/>
+            <column name="tag_user_id" type="int(11)"/>
+
+            <column name="content" type="text"/>
+            <column name="name_image" type="varchar(200)"/>
+            <column name="url_image" type="varchar(200)"/>
+            <column name="number_heart" type="int(11)"/>
+
+            <column name="status" type="varchar(50)"/>
+            <column name="reason_denied_id" type="int(11)"/>
+            <column name="reason_denied_other" type="varchar(500)"/>
+
+            <column name="is_edited" type="boolean" defaultValueBoolean="false"/>
+
+            <column name="user_confirm_id" type="int(11)"/>
+
+            <column name="is_deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="updated_time" type="DATETIME"/>
+            <column name="created_time" type="DATETIME"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append
+                    value="ENGINE=INNODB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_520_ci"/>
+        </modifySql>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/e_government?useSSL=false&characterEncoding=UTF-8
+    username: root
+    password: Son.mym.140899
+
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        use-new-id-generator-mappings: false
+        enable_lazy_load_no_trans: true
+        jdbc:
+          batch_size: 2000
+        order_inserts: true
+        order_update: true
+    open-in-view: false
+  jackson:
+    time-zone: Asia/Ho_Chi_Minh
+    date-format: yyyy/MM/dd HH:mm
+  liquibase:
+    change-log: classpath:/liquibase/db-changelog-master.xml
+    enabled: true
+    drop-first: false
+
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+job:
+  notifyConclusionPost: 0 0 7 * * ? # 7:00 am every day
+  deleteComment: 0 0 6 * * ? # 6:00 am every day
+
+host: http://localhost:8080/
+
+amazonProperties:
+  endpointUrl:
+  bucketName:
+  accessKey:
+  secretKey:
+

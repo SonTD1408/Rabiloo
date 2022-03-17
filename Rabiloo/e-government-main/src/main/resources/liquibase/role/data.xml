@@ -1,0 +1,25 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="insert_role" author="namtg">
+        <insert tableName="role">
+            <column name="name" value="GOVERNMENT"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="PROVINCE"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="DISTRICT"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="COMMUNE"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="CITIZEN"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

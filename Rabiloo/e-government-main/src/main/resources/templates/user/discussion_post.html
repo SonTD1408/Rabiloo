@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{user/layout/template}" xmlns:th="http://www.w3.org/1999/xhtml"
+      th:with="currentPage='discussion-post'">
+<head>
+    <meta charset="UTF-8">
+    <title>Discussion post</title>
+
+    <script src="/custom/user/js/discussion_post/discussion_post.js" type="text/javascript"></script>
+    <script src="/custom/user/js/discussion_post/detail.js" type="text/javascript"></script>
+    <script src="/custom/user/js/discussion_post/add.js" type="text/javascript"></script>
+
+    <style>
+        /* start list post */
+        
+        /* start marquee */
+        .intro-lasted-post {
+            height: 52px;
+            width: 100%;
+            padding: 0 160px;
+            border-top: 1px solid var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .label-intro-lasted-post {
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        .marquee-post {
+            cursor: pointer;
+            height: 100%;
+            line-height: 51px;
+        }
+        /* end marquee */
+
+        .container-body {
+            background-color: #e2e8f0;
+            height: 1000px;
+            padding: 0 160px;
+        }
+        .wrap-content {
+            padding-top: 16px;
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .bars-menu {
+            width: 236px;
+            background-color: white;
+            height: calc(100% - 16px);
+        }
+        .list-field {
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+        .field-item {
+            margin: 0 16px;
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .field-item.active {
+            background-color: var(--primary-bg-color);
+        }
+        .wrap-content-post {
+            width: calc(100% - 236px);
+            height: 1000px;
+        }
+        .filter-post {
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            width: 100%;
+            padding: 0 16px;
+            border-left: 1px solid #ccc;
+        }
+        .filter-post label {
+            margin-bottom: 0;
+            margin-right: 8px;
+        }
+        .wrap-order-by {
+            display: flex;
+            align-items: center;
+        }
+        .select-type {
+            border-radius: 4px;
+            height: 32px;
+            width: 152px;
+            border: 1px solid #ccc;
+        }
+        .search-discussion-post {
+            padding-left: 8px;
+            border-radius: 4px;
+            height: 32px;
+            border: 1px solid #ccc;
+        }
+        
+        #page-list {
+            max-height: calc(1000px - 56px - 16px - 16px); /* filter: 56px, margin: 16px */
+            overflow-y: auto;
+        }
+        #page-detail {
+            max-height: calc(1000px - 56px - 16px - 16px); /* filter: 56px, margin: 16px */
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+        
+        .list-post {
+            margin: 16px 0 0 16px;
+        }
+        .post-item {
+            height: 140px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .wrap-post-content {
+            flex: 0.85;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .post-content {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            color: black;
+            text-decoration: none !important;
+        }
+        .post-content:hover {
+            color: black;
+        }
+        .title-post {
+            font-weight: 600;
+        }
+        .list-icon-post {
+            flex: 0.15;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .certification-solved {
+            position: absolute;
+            top: 22px;
+            right: 18px;
+            font-size: 12px;
+        }
+        .icon-post {
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+        }
+        .icon-post span {
+            margin-bottom: 2px;
+            margin-left: 2px;
+        }
+        .note-post {
+            font-size: 14px;
+        }
+        /* end list post */
+
+        /* start detail post */
+        .btn-back {
+            height: 32px;
+            width: 80px;
+            padding: 0;
+            background-color: var(--primary-bg-color);
+            color: black;
+            margin-left: 16px;
+            margin-top: 16px;
+        }
+
+        .detail-post {
+            background-color: white;
+            margin: 8px 0 0 16px;
+            border-radius: 4px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrap-title-and-list-icon {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .target-post, .closing-deadline {
+            font-size: 14px;
+        }
+        .conclude {
+            display: flex;
+            font-size: 14px;
+        }
+        .content-post {
+            margin: 24px 0;
+        }
+        .target-and-deadline {
+            display: flex;
+            flex-direction: column;
+        }
+        .react-post {
+            cursor: pointer;
+        }
+        .react-post:last-child {
+            margin-left: 16px;
+        }
+        .user-tag {
+            font-width: 600;
+            background-color: #1877f133;
+        }
+        .name-user {
+            margin-right: 24px;
+            font-weight: 600;
+        }
+        /* end detail post */
+        
+        /* start comment */
+        .comment-post {
+            background-color: white;
+            border-radius: 4px;
+            margin: 16px 0 0 16px;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+        }
+        .comment-origin {
+            display: flex;
+        }
+        .content-comment, .content-reply-comment {
+            position: relative;
+            min-height: 30px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .avatar-user {
+            width: 35px;
+        }
+        .wrap-avatar {
+            height: 35px;
+            width: 100%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wrap-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .wrap-content-comment, .wrap-content-reply-comment {
+            width: calc(100% - 35px - 8px);
+            margin-left: 8px;
+            border-radius: 8px;
+            padding: 0 16px;
+            background-color: #f0f2f5;
+        }
+        .wrap-content-comment.active, .wrap-content-reply-comment.active {
+            background-color: #e7f3ff;
+        }
+        .heart-react-comment, .heart-react-reply-comment {
+            cursor: pointer;
+        }
+        .react-comment {
+            font-size: 13px;
+            display: flex;
+        }
+        .reply-comment-item {
+            position: relative;
+            margin-left: calc(35px + 16px);
+            margin-top: 16px;
+            display: flex;
+        }
+        .btn-reply, .btn-reply-comment {
+            margin-right: 16px;
+            cursor: pointer;
+        }
+        .write-comment {
+            margin: 16px 0 0 16px;
+            padding: 16px;
+            background-color: white;
+            border-radius: 4px;
+            display: flex;
+        }
+        .write-reply {
+            background-color: white;
+            border-radius: 4px;
+            display: flex;
+            margin: 16px 0 0 calc(35px + 16px);
+        }
+        .input-comment:empty:before, .input-reply:empty:before {
+            content: attr(data-placeholder);
+        }
+        .input-comment, .input-reply, .input-edit-comment, .input-edit-reply-comment {
+            width: 96%;
+            min-height: 32px;
+            padding: 4px 16px;
+            display: flex;
+        }
+        .input-comment:focus, .input-reply:focus, .input-edit-comment:focus, .input-edit-reply-comment:focus {
+            outline: none;
+            border: none;
+        }
+        .wrap-comment, .wrap-reply, .wrap-edit-comment, .wrap-edit-reply-comment {
+            display: flex;
+            flex-direction: column;
+            margin-left: 8px;
+            width: calc(100% - 35px - 8px);
+        }
+        .wrap-edit-comment, .wrap-edit-reply-comment {
+            position: relative;
+            margin-bottom: 8px;
+        }
+        
+        .wrap-input-comment, .wrap-input-reply {
+            display: flex;
+            align-items: center;
+            background-color: #f0f2f5;
+            border-radius: 8px;
+        }
+        .wrap-btn-remove-image-comment, .wrap-btn-remove-image-reply-comment,
+        .wrap-btn-remove-image-edit-comment, .wrap-btn-remove-image-edit-reply-comment {
+            background-color: #e4e6eb;
+            border-radius: 50%;
+            height: 25px;
+            width: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .wrap-image-comment, .wrap-image-reply, .wrap-image-edit-comment, .wrap-image-edit-reply-comment {
+            display: flex;
+            justify-content: space-between;
+            height: 82px;
+            margin-top: 8px;
+        }
+        .image-comment-small {
+            height: 100%;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .wrap-reason-denied {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            width: 210px;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+            border-radius: 4px;
+            background-color: white;
+            padding: 6px 12px;
+            color: black;
+        }
+
+        .label-reason {
+            color: blue;
+        }
+
+        .time-comment {
+            margin-right: 16px;
+        }
+
+        .icon-action-comment, .icon-action-reply-comment {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-bottom: 0px;
+            padding-bottom: 14px;
+            font-size: 26px;
+            background-color: white;
+            visibility: hidden;
+        }
+
+        .comment-origin:hover .icon-action-comment {
+            visibility: initial;
+        }
+        
+        .reply-comment-item:hover .icon-action-reply-comment {
+            visibility: initial;
+        }
+
+        .list-action-comment, .list-action-reply-comment {
+            position: absolute;
+            top: calc(50% + 16px);
+            right: 0;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+            width: 100px;
+            background-color: white;
+            text-align: center;
+            border-radius: 4px;
+            z-index: 10;
+        }
+
+        .action-comment-item, .action-reply-comment-item {
+            font-size: 13px;
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .action-comment-item:last-child, .action-reply-comment-item:last-child {
+            border-bottom: none;
+        }
+        
+        .wrap-cancel-edit-comment, .wrap-cancel-edit-reply-comment {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            font-size: 11px;
+        }
+        
+        .cancel-edit-comment, .cancel-edit-reply-comment {
+            color: blue;
+            cursor: pointer;
+        }
+        
+        /* modal add discussion post */
+        .select-field {
+            display: block;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 36px;
+            padding: 0 8px
+        }
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <input hidden id="current-user-id" type="text" th:value="${currentUser != null ? currentUser.id : 0}">
+    <input hidden id="current-role-user-id" type="text" th:value="${currentUser != null ? currentUser.roles[0].id : 0}">
+    <input hidden id="post-detail-id" type="text" th:value="${postId != null ? postId : 0}">
+    <input hidden id="field-id" type="text" th:value="${fieldId != null ? fieldId : 0}">
+
+    <div class="intro-lasted-post">
+        <span class="label-intro-lasted-post">Mới nhất</span>
+        <marquee th:id="'post-latest-' + ${postLatest != null ? postLatest.id : '0'}" th:text="${postLatest != null ? postLatest.title : 'Chưa có bài thảo luận'}" behavior="scroll" onmouseover="this.stop()" direction="left" onmouseout="this.start()" class="marquee-post">
+        
+        </marquee>
+    </div>
+    
+    <div class="container-body">
+        <div id="discussion-post" class="wrap-content">
+            <div class="bars-menu">
+                <div class="list-field">
+                    <div v-for="(field, index) in listField"
+                         :id="'field-' + field.id" :class="{active: index == 0}" class="field-item">{{field.name}}</div>
+                </div>
+                <div style="width: 100%; margin-top: 24px; padding: 0 16px; text-align: center">
+                    <button id="btn-create-discussion-post" class="btn">Tạo chủ đề thảo luận</button>
+                </div>
+            </div>
+            <div class="wrap-content-post">
+                <div class="filter-post">
+                    <div class="wrap-order-by">
+                        <label>Sắp xếp theo</label>
+                        <select v-model="orderBy" class="select-type">
+                            <option value="lasted">Mới</option>
+                            <option value="view">Lượt xem</option>
+                            <option value="solved">Đã giải quyết</option>
+                            <option value="unsolved">Chưa giải quyết</option>
+                        </select>
+                    </div>
+                    <input id="search-discussion-post" v-model="keyword" class="search-discussion-post" type="text" placeholder="Tìm kiếm">
+                </div>
+                <div class="page-discussion-post">
+                    
+                    <!-- start list post -->
+                    <div id="page-list">
+                        <div class="list-post">
+                            <div v-for="post in listDiscussionPost" class="post-item">
+                                <div class="wrap-post-content">
+                                    <div :id="'post_' + post.id" class="post-content">
+                                        <h5 class="title-post">{{post.title}}</h5>
+                                        <p>{{post.target}}</p>
+                                    </div>
+                                    <div class="note-post">
+                                        Đăng bởi: {{post.nameCreator}}, thời gian: {{post.createdTime}}
+                                    </div>
+                                </div>
+                                
+                                <div class="list-icon-post">
+                                    <div class="icon-post">
+                                        <i class="fas fa-eye"></i>
+                                        <span>{{post.numberView}}</span>
+                                    </div>
+                                    <div class="icon-post">
+                                        <i class="fal fa-comment"></i>
+                                        <span>{{post.numberComment}}</span>
+                                    </div>
+                                </div>
+    
+                                <div v-if="post.conclude != null" class="certification-solved">
+                                    <i style="color: green" class="fas fa-check-circle"></i>
+                                    <span>Đã được giải quyết</span>
+                                </div>
+                                
+                            </div>
+    
+                        </div>
+    
+                        <div style="margin-top: 76px; display: flex; justify-content: center">
+                            <ul id="pagination" class="pagination"></ul>
+                        </div>
+                    </div>
+                    <!-- end list post -->
+                    
+                    <!-- detail post -->
+                    <div id="page-detail" class="hidden">
+                        <button class="btn btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Quay lại
+                        </button>
+
+                        <div class="detail-post">
+                            <div class="wrap-title-and-list-icon">
+                                <h5 class="title-post">{{title}}</h5>
+                                <div class="list-icon-post">
+                                    <div class="icon-post">
+                                        <i class="fas fa-eye"></i>
+                                        <span>{{numberView}}</span>
+                                    </div>
+                                    <div class="icon-post">
+                                        <i class="fal fa-comment"></i>
+                                        <span>{{listComment.length}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-post">
+                                <div v-html="content"></div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end; height: 100%">
+                                <div class="target-and-deadline">
+                                    <div class="target-post">
+                                        <span>Mục tiêu cần bàn luận: </span>
+                                        <span style="font-weight: 600">{{target}}</span>
+                                    </div>
+
+                                    <div v-if="conclude == null" class="closing-deadline">
+                                        <span>Hạn đưa ra kết luận: </span>
+                                        <span style="font-weight: 600">{{closingDeadline}}</span>
+                                    </div>
+    
+                                    <div v-if="conclude != null" class="conclude">
+                                        <span>Kết luận: </span>
+                                        <span style="font-weight: 600; margin-left: 4px;" v-html="conclude"></span>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex">
+                                    <div v-if="isCanComment" id="btn-comment" class="react-post">
+                                        <i class="fal fa-comment-alt"></i>
+                                        <span>Bình luận</span>
+                                    </div>
+                                    <div class="react-post">
+                                        <i class="fal fa-share"></i>
+                                        <span>Chia sẻ</span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div th:if="${currentUser != null}" class="write-comment hidden">
+                            <div class="avatar-user">
+                                <div class="wrap-avatar">
+                                    <img th:if="${currentUser.urlAvatar != null}" th:src="${currentUser.urlAvatar}">
+                                    <img th:if="${currentUser.urlAvatar == null}" th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                </div>
+                            </div>
+                            <div class="wrap-comment">
+                                <div class="wrap-input-comment">
+                                    <div id="input-comment" class="input-comment" data-placeholder="Viết bình luận" contenteditable="true">
+                                    </div>
+    
+                                    <div id="wrap-icon-choose-image" style="cursor: pointer">
+                                        <i id="btn-choose-image" class="fal fa-camera"></i>
+                                        <input hidden id="input-choose-image" type="file" accept=".jpg, .png, .jpeg">
+                                    </div>
+                                </div>
+                                
+    
+                                <div id="wrap-image-comment" class="wrap-image-comment hidden">
+                                    <div style="height: 100%">
+                                        <img src="" style="height: 100%" id="image-comment">
+                                    </div>
+                                    <div id="btn-remove-image-comment" class="wrap-btn-remove-image-comment">
+                                        <i class="fal fa-times"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="list-comment-post">
+
+                            <div v-if="comment.status != 'DENIED' || currentUserId == comment.userId" v-for="comment in listComment" class="comment-post">
+                                
+                                <div :id="'comment-' + comment.id" class="comment-origin">
+                                    <div class="avatar-user">
+                                        <div class="wrap-avatar">
+                                            <img v-if="!!comment.urlAvatarUserComment" :src="comment.urlAvatarUserComment">
+                                            <img v-else th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                        </div>
+                                    </div>
+                                    <div :id="'wrap-content-comment-' + comment.id" class="wrap-content-comment">
+                                        <div style="color: #494f54; display: flex; justify-content: space-between">
+                                            <span class="name-user">{{comment.nameUserComment}}</span>
+                                            
+                                            <div v-if="comment.status == 'APPROVED'" style="font-size: 13px">
+                                                <i style="color: green" class="fas fa-check-circle"></i>
+                                                <span>Đã được phê duyệt</span>
+                                            </div>
+                                            <div v-if="comment.status == 'DENIED'" style="font-size: 13px">
+                                                <i style="color: #898900" class="fas fa-exclamation-triangle"></i>
+                                                <span>
+                                                    <span>Đã bị từ chối (</span>
+                                                    <span style="position: relative">
+                                                        <span class="label-reason">Lý do</span>
+                                                        <div class="wrap-reason-denied hidden">
+                                                            {{comment.reasonDeniedContent}}
+                                                        </div>
+                                                    </span>
+                                                    <span>), vui lòng chỉnh sửa cho hợp lệ. Nếu không, bình luận của bạn sẽ bị xóa vào ngày {{comment.timeDeleteComment}}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="content-comment">
+                                            <div style="width: calc(100% - 32px)">
+                                                <div :id="'content-comment-' + comment.id" style="width: 100%" v-html="comment.content"></div>
+                                                <div style="height: 82px" v-if="comment.urlImage">
+                                                    <img class="image-comment-small" :id="'image-comment-' + comment.id" :src="comment.urlImage">
+                                                </div>
+                                            </div>
+                                            <div v-if="currentUserId == comment.userId" :id="'icon-action-comment-' + comment.id" class="icon-action-comment">
+                                                ...
+                                            </div>
+    
+                                            <div :id="'list-action-comment-' + comment.id" class="list-action-comment hidden">
+                                                <div :id="'edit-comment-' + comment.id" class="action-comment-item edit-comment">Chỉnh sửa</div>
+                                                <div :id="'delete-comment-' + comment.id" class="action-comment-item delete-comment">Xóa</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="react-comment">
+                                            <div style="margin-right: 16px">
+                                                <i :id="'heart-comment-' + comment.id" :style="{color : comment.likedByCurrentUser ? 'red' : 'black'}" class="fas fa-heart heart-react-comment"></i>
+                                                <span class="number-heart">{{comment.numberHeart}}</span>
+                                            </div>
+                                            <span v-if="isCanComment && comment.status == 'APPROVED'" :id="'btn-reply-' + comment.id" class="btn-reply">Phản hồi</span>
+                                            <span class="time-comment">{{comment.timeComment}}</span>
+                                            <span v-if="comment.edited">Đã chỉnh sửa</span>
+                                        </div>
+                                    </div>
+    
+                                    <div :id="'wrap-edit-comment-' + comment.id" class="wrap-edit-comment hidden">
+                                        <div class="wrap-input-comment">
+                                            <div :id="'input-edit-comment-' + comment.id" class="input-edit-comment" contenteditable="true">
+                                            </div>
+            
+                                            <div :id="'wrap-icon-choose-image-edit-comment-' + comment.id" style="cursor: pointer">
+                                                <i :id="'btn-choose-image-edit-comment-' + comment.id" class="fal fa-camera btn-choose-image-edit-comment"></i>
+                                                <input hidden :id="'input-choose-image-edit-comment-' + comment.id" class="input-choose-image-edit-comment" type="file" accept=".jpg, .png, .jpeg">
+                                            </div>
+                                        </div>
+        
+                                        <div :id="'wrap-image-edit-comment-' + comment.id" class="wrap-image-edit-comment hidden">
+                                            <div style="height: 100%">
+                                                <img src="" style="height: 100%" :id="'image-edit-comment-' + comment.id">
+                                            </div>
+                                            <div :id="'btn-remove-image-edit-comment-' + comment.id" class="wrap-btn-remove-image-edit-comment">
+                                                <i class="fal fa-times"></i>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="wrap-cancel-edit-comment">
+                                            Nhấn để <span class="cancel-edit-comment" :id="'cancel-edit-comment-' + comment.id">hủy</span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                
+                                <div class="list-reply-comment">
+                                    <div v-for="replyComment in comment.listReplyComment" :id="'reply-comment-' + replyComment.id" v-if="replyComment.status != 'DENIED' || currentUserId == replyComment.userId" class="reply-comment-item">
+                                        <div class="avatar-user">
+                                            <div class="wrap-avatar">
+                                                <img v-if="!!replyComment.urlAvatarUser" :src="replyComment.urlAvatarUser">
+                                                <img v-else th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                            </div>
+                                        </div>
+                                        <div :id="'wrap-content-reply-comment-' + replyComment.id" class="wrap-content-reply-comment">
+                                            <div style="color: #494f54; display: flex; justify-content: space-between">
+                                                <span class="name-user">{{replyComment.nameUser}}</span>
+                                                
+                                                <div v-if="replyComment.status == 'APPROVED'" style="font-size: 13px">
+                                                    <i style="color: green" class="fas fa-check-circle"></i>
+                                                    <span>Đã được phê duyệt</span>
+                                                </div>
+                                                <div v-if="replyComment.status == 'DENIED'" style="font-size: 13px">
+                                                    <i style="color: #898900" class="fas fa-exclamation-triangle"></i>
+                                                    <span>Đã bị từ chối (</span>
+                                                    <span style="position: relative">
+                                                        <span class="label-reason">Lý do</span>
+                                                        <div class="wrap-reason-denied hidden">
+                                                            {{replyComment.reasonDeniedContent}}
+                                                        </div>
+                                                    </span>
+                                                    <span>), vui lòng chỉnh sửa cho hợp lệ. Nếu không, bình luận của bạn sẽ bị xóa vào ngày {{replyComment.timeDeleteReplyComment}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="content-reply-comment">
+                                                <div style="width: calc(100% - 32px)">
+                                                    <div :id="'content-reply-comment-' + replyComment.id" style="width: 100%"><span style="font-weight: 600">{{replyComment.nameUserTag}}</span> {{replyComment.content}}</div>
+                                                    <div style="height: 82px" v-if="replyComment.urlImage">
+                                                        <img class="image-comment-small" :id="'image-reply-comment-' + replyComment.id" :src="replyComment.urlImage">
+                                                    </div>
+                                                </div>
+                                                <div v-if="currentUserId == replyComment.userId" :id="'icon-action-reply-comment-' + replyComment.id" class="icon-action-reply-comment">
+                                                    ...
+                                                </div>
+    
+                                                <div :id="'list-action-reply-comment-' + replyComment.id" class="list-action-reply-comment hidden">
+                                                    <div :id="'edit-reply-comment-' + replyComment.id" class="action-reply-comment-item edit-reply-comment">Chỉnh sửa</div>
+                                                    <div :id="'delete-reply-comment-' + replyComment.id" class="action-reply-comment-item delete-reply-comment">Xóa</div>
+                                                </div>
+                                            </div>
+                                            <div class="react-comment">
+                                                <div style="margin-right: 16px">
+                                                    <i :id="'heart-reply-comment-' + replyComment.id" :style="{color : replyComment.likedByCurrentUser ? 'red' : 'black'}" class="fas fa-heart heart-react-reply-comment"></i>
+                                                    <span class="number-heart">{{replyComment.numberHeart}}</span>
+                                                </div>
+                                                <span v-if="isCanComment && replyComment.status == 'APPROVED'" :id="'btn-reply-comment-' + replyComment.userId + '-' + comment.id" class="btn-reply-comment">Phản hồi</span>
+                                                <span class="time-comment">{{replyComment.timeReplyComment}}</span>
+                                                <span v-if="replyComment.edited">Đã chỉnh sửa</span>
+                                            </div>
+                                        </div>
+    
+                                        <div :id="'wrap-edit-reply-comment-' + replyComment.id" class="wrap-edit-reply-comment hidden">
+                                            <div class="wrap-input-reply">
+                                                <div :id="'input-edit-reply-comment-' + replyComment.id" class="input-edit-reply-comment" contenteditable="true">
+                                                </div>
+            
+                                                <div :id="'wrap-icon-choose-image-edit-reply-comment-' + replyComment.id" style="cursor: pointer">
+                                                    <i :id="'btn-choose-image-edit-reply-comment-' + replyComment.id" class="fal fa-camera btn-choose-image-edit-reply-comment"></i>
+                                                    <input hidden :id="'input-choose-image-edit-reply-comment-' + replyComment.id" class="input-choose-image-edit-reply-comment" type="file" accept=".jpg, .png, .jpeg">
+                                                </div>
+                                            </div>
+        
+                                            <div :id="'wrap-image-edit-reply-comment-' + replyComment.id" class="wrap-image-edit-reply-comment hidden">
+                                                <div style="height: 100%">
+                                                    <img src="" style="height: 100%" :id="'image-edit-reply-comment-' + replyComment.id">
+                                                </div>
+                                                <div :id="'btn-remove-image-edit-reply-comment-' + replyComment.id" class="wrap-btn-remove-image-edit-reply-comment">
+                                                    <i class="fal fa-times"></i>
+                                                </div>
+                                            </div>
+        
+                                            <div class="wrap-cancel-edit-reply-comment">
+                                                Nhấn để <span class="cancel-edit-reply-comment" :id="'cancel-edit-reply-comment-' + replyComment.id">hủy</span>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+    
+                                </div>
+    
+                                <div th:if="${currentUser != null}" v-if="isCanComment && comment.status == 'APPROVED'" class="write-reply">
+                                    <div class="avatar-user">
+                                        <div class="wrap-avatar">
+                                            <img th:if="${currentUser.urlAvatar != null}" th:src="${currentUser.urlAvatar}">
+                                            <img th:if="${currentUser.urlAvatar == null}" th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                        </div>
+                                    </div>
+                                    <div class="wrap-reply">
+                                        <div class="wrap-input-reply">
+                                            <div :data-placeholder="'Trả lời ' + comment.nameUserComment" :id="'input-reply-' + comment.id" class="input-reply" contenteditable="true">
+                                            </div>
+                                            <div :id="'wrap-icon-choose-image-' + comment.id" style="cursor: pointer">
+                                                <i :id="'btn-choose-image-' + comment.id" class="fal fa-camera btn-choose-image-reply-comment"></i>
+                                                <input hidden :id="'input-choose-image-' + comment.id" class="input-choose-image" type="file" accept=".jpg, .png, .jpeg">
+                                            </div>
+                                        </div>
+    
+                                        <div :id="'wrap-image-reply-' + comment.id" class="wrap-image-reply hidden">
+                                            <div style="height: 100%">
+                                                <img src="" style="height: 100%" :id="'image-reply-' + comment.id">
+                                            </div>
+                                            <div :id="'btn-remove-image-reply-' + comment.id" class="wrap-btn-remove-image-reply-comment">
+                                                <i class="fal fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Modal show image -->
+        <div id="show_image_popup">
+            <div id="image-show-area">
+                <img id="large-image" src="">
+            </div>
+        </div>
+    
+        <!-- Modal create discussion-post -->
+        <div class="modal fade bd-example-modal-lg" id="modal_add_discussion_post" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div style="overflow-y: initial !important" class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Bài thảo luận</h5>
+                    </div>
+                
+                    <div style="overflow-y: auto; max-height: calc(100vh - 200px)" class="modal-body">
+                        <div class="row">
+                            <form id="form-discussion-post" class="col-md-12">
+                                <div class="form-group">
+                                    <label class="label-form">Lĩnh vực</label><sup style="color: red"> *</sup>
+                                    <select class="select-field" v-model="fieldId">
+                                        <option v-for="field in listField" :value="field.id">{{field.name}}</option>
+                                    </select>
+                                    <p class="error-message-other" :class="{ hidden : !isShowErrorField}">
+                                        Trường này là bắt buộc</p>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label class="label-form">Tiêu đề</label><sup style="color: red"> *</sup>
+                                    <input type="text" name="title" v-model="title" class="form-control"/>
+                                </div>
+    
+                                <div class="form-group">
+                                    <label class="label-form">Mục tiêu bài viết</label><sup style="color: red"> *</sup>
+                                    <input type="text" name="target" v-model="target" class="form-control"/>
+                                </div>
+    
+                                <div :class="isCanCreatePost ? '' : 'hidden'" class="form-group">
+                                    <label class="label-form">Hạn đưa ra kết luận</label><sup style="color: red"> *</sup>
+                                    <div style="position: relative">
+                                        <input id="closing-deadline" class="form-control"
+                                               @blur="validateClosingDeadline(); validateTimeClosingDeadline()"
+                                               @keyup="validateClosingDeadline(); validateTimeClosingDeadline()"
+                                               @change="validateClosingDeadline(); validateTimeClosingDeadline()">
+                                    </div>
+                                    <p class="error-message-other" :class="{ hidden : !isShowErrorClosingDeadline}">
+                                        Trường này là bắt buộc</p>
+                                    <p class="error-message-other" :class="{ hidden : !isShowErrorTimeClosingDeadline}">
+                                        Hạn phải lớn hơn ngày hiện tại</p>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label class="label-form">Nội dung</label><sup style="color: red"> *</sup>
+                                    <textarea id="textarea-content"></textarea>
+                                    <p class="error-message-other" :class="{ hidden : !isShowErrorContent}">
+                                        Trường này là bắt buộc</p>
+                                </div>
+                            
+                            </form>
+                        </div>
+                    </div>
+                
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary btn-sm" @click="save()">Lưu</button>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    
+        <div class="modal fade bd-example-modal-lg" id="modal_delete_comment" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Xóa bình luận?</h5>
+                    </div>
+                    <div class="modal-body" style="text-align: left">
+                        <h6 style="font-weight: 400">Bạn có chắc chắn muốn xóa bình luận này không?</h6>
+                    </div>
+                
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Đóng</button>
+                        <button id="btn_submit_delete_comment" type="button" class="btn btn-primary btn-sm">
+                            Xóa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+</body>
+</html>

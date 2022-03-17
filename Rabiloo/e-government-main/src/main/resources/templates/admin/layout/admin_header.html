@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+    </head>
+
+    <body>
+        <header th:fragment="header(screen)">
+            <link rel="stylesheet" th:href="@{/custom/admin/css/modal_confirm_comment.css}"/>
+    
+            <style type="text/css">
+                #bars-menu {
+                    color: white;
+                }
+
+                .right-menu-hidden {
+                    width: 200px;
+                    color: #ffffff;
+                    font-weight: bold;
+                    text-align: center;
+                    position: absolute;
+                    right: 18px;
+                    top: 65px;
+                    z-index: 100;
+                }
+
+                .title-right-menu {
+                    background-color: #3B4350;
+                    color: white;
+                    line-height: 45px;
+                }
+
+                .content-menu-right-menu {
+                    background-color: white;
+                    color: black;
+                    line-height: 30px;
+                    border: solid 1px black;
+                    border-top: none;
+                    font-size: 12px;
+                    cursor: pointer;
+                }
+
+                .content-menu-right-menu:hover {
+                    background-color: #ddd;
+                }
+
+                a:hover {
+                    text-decoration: none;
+                }
+
+                #hidden_menu a {
+                    cursor: pointer;
+                }
+
+                .wrap-notify {
+                    position: relative;
+                    margin: 0 16px;
+                }
+
+                #btn-notify {
+                    position: relative;
+                    cursor: pointer;
+                    color: white;
+                }
+
+                .wrap-number-notify {
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    top: 2px;
+                    right: -6px;
+                    font-weight: bold;
+                    background-color: white;
+                }
+
+                #number-notify {
+                    color: red;
+                }
+
+                .popup-notify {
+                    width: 362px;
+                    max-height: calc(100vh - 65px);
+                    overflow-y: auto;
+                    position: absolute;
+                    right: -2px;
+                    top: 65px;
+                    z-index: 100;
+                    background-color: white;
+                    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+                    padding-bottom: 12px;
+                }
+
+                .header-notify h4 {
+                    text-align: left;
+                    padding: 8px;
+                }
+
+                .btn-select-type-notify {
+                    background-color: #e4e6eb;
+                    color: black;
+                    border-radius: 8px;
+                    height: 32px;
+                    line-height: 32px;
+                    text-align: center;
+                    padding: 0 8px;
+                    margin: 0 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                }
+
+                .btn-select-type-notify.active {
+                    background-color: #e7f3ff;
+                    color: #1877F2;
+                }
+
+                .notify-item {
+                    padding: 0 8px;
+                    display: flex;
+                    align-items: center;
+                    margin-top: 16px;
+                    color: black;
+                    text-align: left;
+                    width: 100%;
+                    cursor: pointer;
+                }
+
+                .wrap-notify-content {
+                    width: calc(100% - 50px - 8px);
+                }
+
+                .notify-content {
+                    text-align: left !important;
+                }
+
+                .wrap-notify-content {
+                    opacity: 0.6;
+                }
+
+                .notify-item.active .wrap-notify-content {
+                    opacity: 1;
+                }
+
+                .notify-item .notify-time {
+                    text-align: left !important;
+                }
+
+                .notify-item.active .notify-time {
+                    color: #1877F2;
+                }
+
+                .wrap-avatar {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 8px;
+                }
+
+                .wrap-avatar img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+
+                .info-user-login {
+                    color: white;
+                }
+
+                .reason-denied {
+                    width: 100%;
+                    margin-top: 32px;
+                }
+
+                .list-reason-denied {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 8px 0 0 16px;
+                }
+
+                .content-reason-other {
+                    height: 100px;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    padding: 0 8px;
+                }
+                .setup-delete-after-days input {
+                    width: 120px;
+                    border-radius: 4px;
+                    border: 1px solid;
+                    padding-left: 4px;
+                }
+            </style>
+
+            <div class="header-menu header-mini">
+                <div class="left-menu-header">
+                    <nav aria-label="breadcrumb" th:block>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/admin/home">Trang chủ</a>
+                            </li>
+                            <li th:if="${screen} == 'manage_user'" class="breadcrumb-item active"
+                                aria-current="page">Danh sách người dùng
+                            </li>
+                            <li th:if="${screen} == 'discussion_post'" class="breadcrumb-item active"
+                                aria-current="page">Danh sách bài thảo luận
+                            </li>
+                            <li th:if="${screen} == 'field'" class="breadcrumb-item active"
+                                aria-current="page">Danh sách lĩnh vực
+                            </li>
+                            <li th:if="${screen} == 'reason_denied_comment'" class="breadcrumb-item active"
+                                aria-current="page">Danh sách lý do từ chối bình luận
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                
+                <div class="right-menu">
+                    <div class="info-user-login">
+                        <div>
+                            <b th:text="${currentUser.name} + ' - ' + ${currentUser.roles[0].name}"></b>
+                        </div>
+                        <div>
+                            <span th:text="${currentUser.birthdayStr}"></span>
+                        </div>
+                    </div>
+
+                    <div id="wrap-notify" class="wrap-notify">
+                        <div id="btn-notify">
+                            <i class="fas fa-bell"></i>
+                            <div class="wrap-number-notify hidden">
+                                <span id="number-notify">{{numberNotification}}</span>
+                            </div>
+                        </div>
+
+                        <div id="popup-notify" class="popup-notify">
+                            <div class="header-notify">
+                                <h4>Thông báo</h4>
+                            </div>
+                            <div style="display: flex">
+                                <div id="btn-select-all-notify" class="btn-select-type-notify active">Tất cả</div>
+                                <div id="btn-select-not-read-notify" class="btn-select-type-notify">Chưa đọc</div>
+                            </div>
+                            <div class="notify-item" :id="'notification_' + notification.id"
+                                 v-for="notification in listNotification" :class="notification.read ? '' : 'active'">
+                                <div class="wrap-avatar">
+                                    <img v-if="!!notification.urlAvatarUserImpact" :src="notification.urlAvatarUserImpact">
+                                    <img v-else th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                </div>
+                                <div class="wrap-notify-content">
+                                    <div class="notify-content">
+                                        <b>{{notification.nameUserImpact}}</b>
+                                        <span v-if="notification.type == 'COMMENT'">đã bình luận trong bài viết
+                                            <b>{{notification.titlePost}}</b>
+                                        </span>
+                                        <span v-if="notification.type == 'REPLY_COMMENT'">đã trả lời một bình luận trong
+                                            bài viết <b>{{notification.titlePost}}</b>
+                                        </span>
+                                        <span v-if="notification.type == 'EDIT_COMMENT'">đã chỉnh sửa một bình luận trong
+                                            bài viết <b>{{notification.titlePost}}</b>
+                                        </span>
+                                        <span v-if="notification.type == 'CREATE_POST'">đã gửi yêu cầu tạo bài
+                                            thảo luận<b>{{notification.titlePost}}</b>
+                                        </span>
+                                    </div>
+                                    <div class="notify-time">
+                                        {{notification.timeNotification}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wrap-bars-menu">
+                        <i id="bars-menu" class="fas fa-bars" style="cursor: pointer"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-menu-hidden" id="wrap-menu">
+                <div class="title-right-menu">Menu</div>
+                <a href="/admin/my_profile">
+                    <div class="content-menu-right-menu" style="border-bottom: solid 1px;">Cá nhân
+                    </div>
+                </a>
+                <a href="/home">
+                    <div class="content-menu-right-menu" style="border-bottom: solid 1px;">Trang chủ
+                    </div>
+                </a>
+                <a id="change_password">
+                    <div class="content-menu-right-menu" style="border-bottom: solid 1px;">Đổi mật khẩu
+                    </div>
+                </a>
+                <a href="/logout" id="logoutLink">
+                    <div class="content-menu-right-menu" style="border-bottom: solid 1px;">Đăng xuất
+                    </div>
+                </a>
+            </div>
+
+            <div class="modal fade bd-example-modal-xl" id="modal_confirm_comment" role="dialog"
+                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Duyệt bình luận</h5>
+                        </div>
+                        <div class="modal-body">
+
+                            <!-- detail post -->
+                            <div class="detail-post">
+                                <div class="wrap-title-and-list-icon">
+                                    <h5 class="title-post">{{post.title}}</h5>
+                                    <div class="list-icon-post">
+                                        <div class="icon-post">
+                                            <i class="fas fa-eye"></i>
+                                            <span>{{post.numberView}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-post">
+                                    <div v-html="post.content"></div>
+                                </div>
+
+                                <div style="display: flex; align-items: flex-end; height: 100%">
+                                    <div class="target-and-deadline">
+                                        <div class="target-post">
+                                            <span>Mục tiêu cần bàn luận:</span>
+                                            <span style="font-weight: 600">{{post.target}}</span>
+                                        </div>
+
+                                        <div class="closing-deadline">
+                                            <span>Hạn đưa ra kết luận:</span>
+                                            <span style="font-weight: 600">{{post.closingDeadline}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div style="padding: 16px" class="comment-post">
+                                <div class="comment-origin">
+                                    <div class="avatar-user">
+                                        <div class="wrap-avatar">
+                                            <img v-if="!!comment.urlAvatarUserComment" :src="comment.urlAvatarUserComment">
+                                            <img v-else th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                        </div>
+                                    </div>
+                                    <div :style="{border: comment.status === 'APPROVED' || statusComment === 'APPROVED' ?
+                                    '1px solid blue' : '1px solid red'}" style="background-color: #e7f3ff"
+                                         class="wrap-content-comment">
+                                        <div style="color: #494f54">
+                                            <span class="name-user">{{comment.nameUserComment}}</span>
+                                        </div>
+                                        <div class="content-comment">
+                                            <div v-html="comment.content"></div>
+                                            <div style="height: 82px" v-if="comment.nameImage">
+                                                <img class="image-comment"
+                                                     :src="comment.urlImage">
+                                            </div>
+                                        </div>
+                                        <div class="react-comment">
+                                            <span class="time-comment">{{comment.timeComment}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="comment.status === 'WAITING'" class="form-check">
+                                        <div th:if="${actionable.manageCommentPost}">
+                                            <label class="radio-container">
+                                                <span style="font-size: 13px">Chấp thuận</span>
+                                                <input type="radio" v-model="statusComment"
+                                                       value="APPROVED">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-container">
+                                                <span style="font-size: 13px">Từ chối</span>
+                                                <input type="radio" v-model="statusComment"
+                                                       value="DENIED">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <div th:if="!${actionable.manageCommentPost}" style="color: red">
+                                            Chưa được phê duyệt
+                                        </div>
+                                    </div>
+
+                                    <div v-else class="form-check">
+                                        <div>
+                                            <span v-if="comment.status === 'APPROVED'">Đã được chấp thuận bởi:</span>
+                                            <span v-if="comment.status === 'DENIED'">Đã bị từ chối bởi:</span>
+                                            <span>
+                                                <b>{{comment.nameUserConfirm}}</b>
+                                            </span>
+                                        </div>
+                                        <div v-if="comment.status === 'DENIED'">
+                                            <span>Lý do:</span>
+                                            <span>{{comment.reasonDeniedContent}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div v-if="!!replyComment" class="reply-comment-item">
+                                    <div class="avatar-user">
+                                        <div class="wrap-avatar">
+                                            <img v-if="!!replyComment.urlAvatarUser" :src="replyComment.urlAvatarUser">
+                                            <img v-else th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                        </div>
+                                    </div>
+                                    <div :style="{border: replyComment.status === 'APPROVED' || statusComment === 'APPROVED' ? '1px solid blue' : '1px solid red'}"
+                                         style="background-color: #f0f2f5" class="wrap-content-comment">
+                                        <div style="color: #494f54">
+                                            <span class="name-user">{{replyComment.nameUser}}</span>
+                                        </div>
+                                        <div class="content-comment">
+                                            <div>
+                                                <span style="font-weight: 600">{{replyComment.nameUserTag}}</span>
+                                                {{replyComment.content}}
+                                            </div>
+                                            <div style="height: 82px" v-if="replyComment.urlImage">
+                                                <img class="image-comment"
+                                                     :src="replyComment.urlImage">
+                                            </div>
+                                        </div>
+                                        <div class="react-comment">
+                                            <span class="time-comment">{{replyComment.timeReplyComment}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="replyComment.status === 'WAITING'" class="form-check">
+                                        <div th:if="${actionable.manageCommentPost}">
+                                            <label class="radio-container">
+                                                <span style="font-size: 13px">Chấp thuận</span>
+                                                <input type="radio" v-model="statusComment"
+                                                       value="APPROVED">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-container">
+                                                <span style="font-size: 13px">Từ chối</span>
+                                                <input type="radio" v-model="statusComment"
+                                                       value="DENIED">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <div th:if="!${actionable.manageCommentPost}" style="color: red">
+                                            Chưa được phê duyệt
+                                        </div>
+                                    </div>
+
+                                    <div v-else class="form-check">
+                                        <div>
+                                            <span v-if="replyComment.status === 'APPROVED'">Đã được chấp thuận bởi:</span>
+                                            <span v-if="replyComment.status === 'DENIED'">Đã bị từ chối bởi:</span>
+                                            <span>
+                                                <b>{{replyComment.nameUserConfirm}}</b>
+                                            </span>
+                                        </div>
+                                        <div v-if="replyComment.status === 'DENIED'">
+                                            <span>Lý do:</span>
+                                            <span>{{replyComment.reasonDeniedContent}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="reason-denied" v-if="statusComment === 'DENIED'">
+                                <div style="display: flex">
+                                    <div class="wrap-list-reason-denied" style="display: flex; flex: 0.5">
+                                        <span style="margin-top: 2px">Lý do từ chối:</span>
+                                        <div class="list-reason-denied">
+                                            <label v-for="reasonDenied in listReasonDenied" class="radio-container">
+                                                <span style="font-size: 13px">{{reasonDenied.content}}</span>
+                                                <input type="radio" v-model="reasonDeniedId"
+                                                       :value="reasonDenied.id">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-container">
+                                                <span style="font-size: 13px">Khác</span>
+                                                <input type="radio" v-model="reasonDeniedId"
+                                                       value="0">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div v-if="reasonDeniedId === '0'" style="flex: 0.5; display: flex">
+                                        <span style="width: 100px">Lý do khác:</span>
+                                        <div style="width: 100%">
+                                            <div id="content-reason-other" class="content-reason-other" contenteditable="true">
+                                            </div>
+                                            <span :class="{hidden: !isShowErrorContentReasonOther}" class="error-message-other">Trường này là bắt buộc</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setup-delete-after-days">
+                                    <span style="margin-top: 2px">Cài đặt bình luận sẽ bị xóa sau:</span>
+                                    <input v-model="numberDaysDelete" type="number" min="1">
+                                    <span> ngày</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Đóng</button>
+                            <button th:if="${actionable.manageCommentPost}" type="button" class="btn btn-primary btn-sm"
+                                    @click="confirm()">
+                                Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+    </body>
+</html>

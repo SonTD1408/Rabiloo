@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+
+    </head>
+    <body>
+
+        <header class="header" th:fragment="header(screen)">
+            <style>
+                .header {
+
+                }
+
+                .header-logo {
+                    color: var(--primary-color);
+                    font-weight: bold;
+                }
+
+                .header-banner {
+                    width: 100%;
+                    height: 120px;
+                    margin-top: 42px;
+                }
+
+                .header-info {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    padding: 0 160px;
+                    height: 42px;
+                    background-color: var(--primary-bg-color);
+                    z-index: 10;
+                }
+
+                .header-info-left {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .header-list-menu {
+                    display: flex;
+                    align-items: center;
+                    margin-left: 40px;
+                }
+
+                .header-list-menu a {
+                    text-decoration: none;
+                    margin-right: 24px;
+                    color: black;
+                }
+
+                .header-list-menu a.active {
+                    border-bottom: 2px solid red;
+                }
+
+                .header-list-menu a:hover {
+                    color: #585858;
+                }
+
+                .logged {
+                    display: flex;
+                    align-items: center;
+                }
+                
+                .wrap-user {
+                    position: relative;
+                }
+                
+                .list-info-user {
+                    position: absolute;
+                    width: 180px;
+                    background-color: white;
+                    top: calc(100% + 4px);
+                    right: 0;
+                    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+                    border-radius: 6px;
+                    overflow: hidden;
+    
+                }
+                
+                .info-user-item {
+                    display: block;
+                    height: 32px;
+                    border-bottom: 1px solid #ccc;
+                    text-align: center;
+                    cursor: pointer;
+                    color: black;
+                    text-decoration: none !important;
+                }
+
+                .info-user-item:hover {
+                    color: black;
+                    background-color: #EEEEEEFF;
+                }
+
+                #wrap-notify {
+                    position: relative;
+                }
+
+                #btn-notify {
+                    position: relative;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-right: 8px;
+                    border-radius: 50%;
+                    background-color: #e4e6eb;
+                    cursor: pointer;
+                }
+
+                .popup-notify {
+                    position: absolute;
+                    width: 362px;
+                    background-color: red;
+                    top: calc(100% + 6px);
+                    right: 0;
+                    z-index: 100;
+                    background-color: white;
+                    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+                    border-radius: 6px;
+                    padding-bottom: 8px;
+                }
+
+                #btn-notify:hover {
+                    background-color: #f6f6f6;
+                }
+
+                #btn-notify i {
+                    color: var(--primary-color);
+                    transform: rotate(-10deg);
+                }
+                
+                .wrap-number-notify {
+                    position: absolute;
+                    top: -6px;
+                    right: -6px;
+                    color: red;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: red;
+                    border-radius: 50%;
+                    width: 16px;
+                    height: 16px;
+                }
+                
+                #number-notify {
+                    color: white;
+                }
+                
+                #header-avatar {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    margin-right: 8px;
+                }
+
+                #header-avatar img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+                
+                #btn-user {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    padding: 2px;
+                }
+                
+                #btn-user:hover {
+                    background-color: #FFE5BBFF;
+                    border-radius: 4px;
+                }
+                
+                .btn-login {
+                    background-color: #e8e8e8;
+                    color: black;
+                    width: 104px;
+                }
+
+                .header-notify h4 {
+                    text-align: left;
+                    padding: 8px;
+                }
+
+                .btn-select-type-notify {
+                    background-color: #e4e6eb;
+                    color: black;
+                    border-radius: 8px;
+                    height: 32px;
+                    line-height: 32px;
+                    text-align: center;
+                    padding: 0 8px;
+                    margin: 0 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                }
+
+                .btn-select-type-notify.active {
+                    background-color: #e7f3ff;
+                    color: #1877F2;
+                }
+
+                .notify-item {
+                    padding: 0 8px;
+                    display: flex;
+                    align-items: center;
+                    color: black;
+                    text-align: left;
+                    width: 100%;
+                    cursor: pointer;
+                    margin-top: 16px;
+                    margin-bottom: 8px;
+                    font-size: 14px;
+                }
+
+                .wrap-notify-content {
+                    width: calc(100% - 50px - 8px);
+                }
+
+                .notify-content {
+                    text-align: left !important;
+                }
+
+                .wrap-notify-content {
+                    opacity: 0.6;
+                }
+
+                .notify-item.active .wrap-notify-content {
+                    opacity: 1;
+                }
+
+                .notify-item .notify-time {
+                    font-size: 13px;
+                    text-align: left !important;
+                }
+
+                .notify-item.active .notify-time {
+                    color: #1877F2;
+                }
+
+                .wrap-avatar-notification {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 8px;
+                }
+
+                .wrap-avatar-notification img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+            </style>
+
+            <div class="header-info">
+                <div class="header-info-left">
+                    <h3 class="header-logo">Chính phủ điện tử</h3>
+                    <div class="header-list-menu">
+                        <a th:class="${screen} == 'home' ? 'active' : ''" href="/home">Trang chủ</a>
+                        <a th:class="${screen} == 'discussion-post' ? 'active' : ''" href="/discussion-post">Bàn luận</a>
+                        <a href="">Báo điện tử chính phủ</a>
+                    </div>
+                </div>
+                <div>
+                    <div th:if="${currentUser == null}" class="no-login">
+                        <a href="/login" class="btn btn-login">Đăng nhập</a>
+                        <a href="/register" class="btn btn-login">Đăng ký</a>
+                    </div>
+                    <div th:if="${currentUser != null}" class="logged">
+                        <div id="wrap-notify">
+                            <div id="btn-notify">
+                                <i class="fas fa-bell"></i>
+                                <div class="wrap-number-notify hidden">
+                                    <span id="number-notify">{{numberNotification}}</span>
+                                </div>
+                            </div>
+
+                            <div id="popup-notify" class="popup-notify">
+                                <div class="header-notify">
+                                    <h4>Thông báo</h4>
+                                </div>
+                                <div style="display: flex; font-size: 14px">
+                                    <div id="btn-select-all-notify" class="btn-select-type-notify active">Tất cả</div>
+                                    <div id="btn-select-not-read-notify" class="btn-select-type-notify">Chưa đọc</div>
+                                </div>
+                                <div class="notify-item" v-for="notification in listNotification" :id="'notification_' + notification.id"
+                                     :class="notification.read ? '' : 'active'">
+                                    <div class="wrap-avatar-notification">
+                                        <img v-if="!!notification.urlAvatarUserComment" :src="notification.urlAvatarUserComment">
+                                        <img v-else th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                    </div>
+                                    <div class="wrap-notify-content">
+                                        <!-- render notification -->
+                                        <div v-if="notification.type == 'CONFIRM_COMMENT'" class="notify-content">
+                                            <span>Bình luận của bạn trong
+                                                bài viết <b>{{notification.titlePost}}</b>
+                                            </span>
+                                            <span v-if="notification.statusComment == 'DENIED'">đã bị từ chối</span>
+                                            <span v-if="notification.statusComment == 'APPROVED'">đã được chấp thuận</span>
+                                        </div>
+                                        <div v-if="notification.type == 'MENTION_COMMENT'" class="notify-content">
+                                            <b>{{notification.nameUserComment}} </b><span>đã nhắc đến bạn trong bình luận một bài viết</span>
+                                        </div>
+                                        <div v-if="notification.type == 'REPLY_COMMENT'" class="notify-content">
+                                            <b>{{notification.nameUserComment}} </b><span>đã trả lời bình luận của bạn trong một bài viết</span>
+                                        </div>
+                                        <!---->
+                                        
+                                        <div class="notify-time">
+                                            {{notification.timeNotification}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="wrap-user">
+                            <div id="btn-user">
+                                <div id="header-avatar">
+                                    <img th:if="${currentUser.urlAvatar != null}" th:src="${currentUser.urlAvatar}">
+                                    <img th:if="${currentUser.urlAvatar == null}" th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                                </div>
+                                <span id="name-user" th:text="${currentUser.name}"></span>
+                            </div>
+                            <div class="list-info-user">
+                                <a href="/my_profile" class="info-user-item">Cá nhân</a>
+                                <a th:if="!${isOnlyCitizen}" href="/admin/home" class="info-user-item">Quản lý</a>
+                                <a id="change_password" class="info-user-item">Đổi mật khẩu</a>
+                                <a href="/logout" class="info-user-item">Đăng xuất</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <img class="header-banner" th:src="@{/custom/common/img/banner/e-government2.jpg}">
+
+        </header>
+
+    </body>
+</html>

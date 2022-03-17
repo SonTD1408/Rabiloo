@@ -1,0 +1,130 @@
+<div th:fragment="modal_discussion_post">
+    
+    <script src="/custom/admin/js/discussion_post/add.js" type="text/javascript"></script>
+    
+    <style>
+        .select2.select2-container.select2-container--default {
+            width: 100% !important;
+        }
+        
+        .form-group.hidden .select2.select2-container.select2-container--default {
+            display: none !important;
+        }
+        
+        .select-field {
+            display: block;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 36px;
+            padding: 0 8px;
+        }
+        .certification-approved {
+            font-size: 12px;
+        }
+    </style>
+    
+    <div class="modal fade bd-example-modal-lg" id="modal_add_discussion_post" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div style="overflow-y: initial !important" class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bài thảo luận</h5>
+                </div>
+                
+                <div style="overflow-y: auto; max-height: calc(100vh - 200px)" class="modal-body">
+                    <div class="row">
+                        <form id="form-discussion-post" class="col-md-12">
+                            <div v-if="!!id" style="margin-bottom: 12px">
+                                <div style="display: flex; justify-content: space-between; align-items: center">
+                                    <div>
+                                        <span style="width: 130px; display: inline-block">Được tạo từ phía: </span>
+                                        <span style="font-weight: 600" v-text="isCreatedFromUser ? 'Người dùng' : 'Quản lý'"></span>
+                                    </div>
+                                    <div :class="isApproved ? '' : 'hidden'" class="certification-approved">
+                                        <i style="color: green" class="fas fa-check-circle"></i>
+                                        <span>Đã được phê duyệt</span>
+                                    </div>
+                                </div>
+                                
+                                <div v-if="nameCreator != null">
+                                    <span style="width: 130px; display: inline-block">Người tạo: </span>
+                                    <span style="font-weight: 600">{{nameCreator}} </span>
+                                    <span>({{nameRoleCreator}})</span>
+                                </div>
+                                
+                                <div v-if="nameApprover != null">
+                                    <span style="width: 130px; display: inline-block">Người phê duyệt: </span>
+                                    <span style="font-weight: 600">{{nameApprover}} </span>
+                                    <span>({{nameRoleApprover}})</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="label-form">Lĩnh vực</label><sup style="color: red"> *</sup>
+                                <select :disabled="!!id" class="select-field" v-model="fieldId">
+                                    <option v-for="field in listField" :value="field.id">{{field.name}}</option>
+                                </select>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorField}">
+                                    Trường này là bắt buộc</p>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="label-form">Tiêu đề</label><sup style="color: red"> *</sup>
+                                <input type="text" name="title" v-model="title" class="form-control"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="label-form">Mục tiêu bài viết</label><sup style="color: red"> *</sup>
+                                <input type="text" name="target" v-model="target" class="form-control"/>
+                            </div>
+    
+                            <div class="form-group">
+                                <label class="label-form">Hạn đưa ra kết luận</label><sup style="color: red"> *</sup>
+                                <div style="position: relative">
+                                    <input id="closing-deadline" class="form-control"
+                                           @blur="validateClosingDeadline(); validateTimeClosingDeadline()"
+                                           @keyup="validateClosingDeadline(); validateTimeClosingDeadline()"
+                                           @change="validateClosingDeadline(); validateTimeClosingDeadline()">
+                                </div>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorClosingDeadline}">
+                                    Trường này là bắt buộc</p>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorTimeClosingDeadline}">
+                                    Hạn phải lớn hơn ngày hiện tại</p>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="label-form">Nội dung</label><sup style="color: red"> *</sup>
+                                <textarea id="textarea-content-post"></textarea>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorContent}">
+                                    Trường này là bắt buộc</p>
+                            </div>
+                            
+                            <div :class="isCreatedFromUser ? 'hidden' : ''" class="form-group">
+                                <label class="label-form">Các quyền có thể tham gia đóng góp</label><sup
+                                    style="color: red"> *</sup><br>
+                                <select class="form-control" id="select_role" multiple="multiple">
+                                    <option v-for="role in listRole" :value="role.id">{{role.name}}</option>
+                                </select>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorRoleComment}">
+                                    Trường này là bắt buộc</p>
+                            </div>
+                            
+                            <div :class="!!conclude ? '' : 'hidden'" class="form-group">
+                                <label class="label-form">Kết luận</label>
+                                <input disabled v-model="conclude" class="form-control"/>
+                            </div>
+                        
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm" @click="save()">Lưu</button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>

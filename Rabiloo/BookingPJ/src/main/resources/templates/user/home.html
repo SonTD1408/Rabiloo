@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Title</title>
+    <style>
+        html{
+            font-family: 'Times New Roman', Times, serif;
+        }
+        body{
+            margin: 0;
+        }
+        #notification-covid{
+            background-color: #ffc52f;
+            color: #000;
+            padding:8px 0;
+            font-size: 18px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+        #notification-covid span{
+            color: blue;
+            text-decoration: underline;
+            min-width: 15%;
+        }
+
+        /*body */
+        #body-content{
+            padding-top: 50%;
+            background: url("https://static.vexere.com/production/banners/813/Untitled-design-(1).png") top center / cover no-repeat;
+            display: flex;
+            justify-content: center;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+            z-index: 0;
+        }
+
+        .body-content-banner{
+            width: 80%;
+            position: absolute;
+            top: 30%;
+        }
+
+        #body-content .body-banner-title{
+            color: #fff;
+            text-align: center;
+        }
+
+        .body-banner-search{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            background-color: #fff;
+        }
+
+        .search-input{
+            width: 85%;
+            display: flex;
+        }
+
+        .search-input .search-from{
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .search-input .search-to{
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .search-input .search-date{
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .search-input .input-data{
+            height: 48px;
+            /* width: 100%; */
+            font-size: 18px;
+            border: 0px solid #fff;
+            padding: 5px 12px 5px 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .search-input .input-data:focus{
+            outline: none;
+        }
+
+        .icon-search{
+            font-size: 24px;
+            padding: 0 16px;
+            color: rgb(0 122 255);
+        }
+        .search-find{
+            width: 15%;
+        }
+
+        .search-find .button-submit{
+            background-color: rgb(255 197 0);
+            width: 100%;
+            height: 100%;
+            border: none;
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body style="position: relative;">
+    <header th:replace="user/layout/header::header"></header>
+    <div id="notification-covid">
+        <marquee behavior="scroll" onmouseover="this.stop()" direction="left" onmouseout="this.start()" class="marquee-news">
+            Cập nhật các thông tin mới nhất về dịch Covid-19 trước khi di chuyển.
+        </marquee>
+        <span>Tìm hiểu thêm</span>
+    </div>
+
+    <div id="body-content">
+        <div class="body-content-banner">
+            <div class="body-banner-title">
+                <h2>VeXeRe - Cam kết hoàn 150% nếu nhà xe không giữ vé</h2>
+            </div>
+
+            <form action="" method="post">
+                <div class="body-banner-search">
+                    <div class="search-input">
+                        <div class="search-from">
+                            <i class="icon-search fa-solid fa-location-dot"></i>
+                            <input class="input-data" placeholder="Tỉnh, thành phô nơi đi" type="text"/>
+                        </div>
+                        <div class="search-to">
+                            <i class="icon-search fa-solid fa-location-dot"></i>
+                            <input class="input-data" placeholder="Tỉnh, thành phô nơi đến" type="text"/>
+                        </div>
+                        <div class="search-date">
+                            <i class="icon-search fa-regular fa-calendar-days"></i>
+                            <input class="input-data" placeholder="Ngày đi" type="date"/>
+                        </div>
+                    </div>
+                    <div class="search-find">
+                        <button class="button-submit" type="submit">Tìm Kiếm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div th:replace="common/login::login"></div>
+<!--    <footer th:replace="user/layout/header::footer"></footer>-->
+    <script>
+        const closeBtn = document.querySelector(".modal-close");
+        const loginBtn  = document.querySelector(".login");
+        const noLoginBtn = document.querySelector(".no-login")
+        const modalLogin = document.querySelector(".login-form");
+        const loginFormModal = document.querySelector(".login-form-modal")
+
+        function openFormLogin(){
+            modalLogin.classList.add("login-form-open")
+        }
+
+        function closeFormLogin(){
+            modalLogin.classList.remove("login-form-open")
+        }
+
+        function openLogout() {
+            var x = document.getElementById("logout");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+        if (loginBtn!=null){
+            loginBtn.addEventListener('click',openLogout)
+        }
+        if (noLoginBtn!=null){
+            noLoginBtn.addEventListener('click', openFormLogin)
+        }
+        closeBtn.addEventListener('click', closeFormLogin)
+        modalLogin.addEventListener('click', closeFormLogin)
+        loginFormModal.addEventListener('click', function(even){
+            even.stopPropagation()
+        })
+    </script>
+</body>
+</html>

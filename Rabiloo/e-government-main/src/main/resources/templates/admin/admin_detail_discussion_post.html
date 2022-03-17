@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{admin/layout/admin_template}"
+      th:with="currentPage='detail_discussion_post'">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý</title>
+    
+    <script src="/custom/admin/js/discussion_post/conclusion.js" type="text/javascript"></script>
+    
+    <style>
+        /* start detail post */
+        .btn-back {
+            height: 32px;
+            width: 80px;
+            padding: 0;
+            background-color: #3B4350;
+            margin-left: 16px;
+            color: white;
+            font-size: 15px;
+            line-height: 28px;
+        }
+        
+        .btn-back:hover {
+            color: white;
+        }
+        
+        .detail-post {
+            background-color: white;
+            margin: 8px 0 0 16px;
+            border-radius: 4px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wrap-title-and-list-icon {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .target-post, .closing-deadline {
+            font-size: 14px;
+        }
+        
+        .conclusion {
+            display: flex;
+        }
+        
+        .content-post {
+            margin: 24px 0;
+        }
+        
+        .target-and-deadline {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .name-user {
+            margin-right: 24px;
+            font-weight: 600;
+        }
+        /* end detail post */
+        
+        /* start comment */
+        .comment-post {
+            background-color: white;
+            border-radius: 4px;
+            margin: 16px 0 0 16px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .comment-origin {
+            display: flex;
+        }
+        
+        .content-comment, .content-reply-comment {
+            position: relative;
+            min-height: 30px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .avatar-user {
+            width: 35px;
+        }
+        
+        .wrap-avatar {
+            height: 35px;
+            width: 100%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wrap-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
+        .wrap-content-comment, .wrap-content-reply-comment {
+            width: calc(100% - 35px - 8px);
+            margin-left: 8px;
+            border-radius: 8px;
+            padding: 0 16px;
+        }
+        
+        .heart-react-comment {
+            color: red;
+            cursor: pointer;
+        }
+        
+        .react-comment {
+            font-size: 13px;
+            display: flex;
+        }
+        
+        .reply-comment-item {
+            position: relative;
+            margin-left: calc(35px + 16px);
+            margin-top: 16px;
+            display: flex;
+        }
+        
+        
+        .image-comment-small {
+            height: 100%;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        
+        .time-comment {
+            margin-right: 16px;
+        }
+        
+        
+        /* start modal show large image */
+        #show_image_popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 1000;
+            transform: translate(-50%, -50%); /*  make center   */
+            display: none;
+        }
+        
+        #show_image_popup img {
+            max-width: 400px;
+            height: auto;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+        }
+        /* end modal show large image */
+    </style>
+    
+</head>
+<body>
+<div layout:fragment="content">
+    <input hidden type="text" id="post_id" th:value="${post.id}">
+    
+    <div id="page-detail">
+        <div style="display: flex; align-items: center; justify-content: space-between">
+            <a href="/admin/discussion_post" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i>
+                Quay lại
+            </a>
+    
+            <button th:if="${post.conclude == null}" style="height: 32px; line-height: 24px; padding: 0 8px" data-toggle="modal" data-target="#modal_conclusion"
+                    class="btn btn-primary btn-sm" id="btn-add">Kết luận
+            </button>
+        </div>
+        
+        
+        <div class="detail-post">
+            <div class="wrap-title-and-list-icon">
+                <h5 class="title-post" th:text="${post.title}"></h5>
+                <div class="list-icon-post">
+                    <div class="icon-post">
+                        <i class="fas fa-eye"></i>
+                        <span th:text="${post.numberView}"></span>
+                    </div>
+                    <div class="icon-post">
+                        <i class="fal fa-comment"></i>
+                        <span th:text="${post.listComment.size()}"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-post">
+                <div th:utext="${post.content}"></div>
+            </div>
+            
+            <div style="display: flex; align-items: flex-end; height: 100%">
+                <div class="target-and-deadline">
+                    <div class="target-post">
+                        <span>Mục tiêu cần bàn luận: </span>
+                        <span style="font-weight: 600" th:text="${post.target}"></span>
+                    </div>
+                    
+                    <div class="closing-deadline">
+                        <span>Hạn đưa ra kết luận: </span>
+                        <span style="font-weight: 600" th:text="${post.closingDeadlineStr}"></span>
+                    </div>
+    
+                    <div th:if="${post.conclude != null}" class="conclusion">
+                        <span style="padding-right: 4px">Kết luận: </span>
+                        <span style="font-weight: 600" th:utext="${post.conclude}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="list-comment-post">
+            <div th:each="comment : ${post.listComment}" class="comment-post">
+                <div class="comment-origin">
+                    <div class="avatar-user">
+                        <div class="wrap-avatar">
+                            <img th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                        </div>
+                    </div>
+                    <div style="background-color: #e7f3ff" class="wrap-content-comment">
+                        <div style="color: #494f54; display: flex; justify-content: space-between">
+                            <span class="name-user" th:text="${comment.nameUserComment}"></span>
+                            <div style="font-size: 13px">
+                                <i style="color: green" class="fas fa-check-circle"></i>
+                                <span>Đã được phê duyệt</span>
+                            </div>
+                        </div>
+                        
+                        <div class="content-comment">
+                            <div style="width: calc(100% - 32px)">
+                                <div style="width: 100%" th:utext="${comment.content}"></div>
+                                <div style="height: 82px" th:if="${comment.nameImage}">
+                                    <img class="image-comment-small"
+                                         th:src="@{'/custom/common/img/image_comment/' + ${comment.nameImage}}">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="react-comment">
+                            <div style="margin-right: 16px">
+                                <i class="fas fa-heart heart-react-comment"></i>
+                                <span class="number-heart">2</span>
+                            </div>
+                            <span class="time-comment" th:text="${comment.timeComment}"></span>
+                            <span th:if="${comment.edited}">Đã chỉnh sửa</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-reply-comment">
+                    <div th:each="replyComment : ${comment.listReplyComment}" class="reply-comment-item">
+                        <div class="avatar-user">
+                            <div class="wrap-avatar">
+                                <img th:src="@{/custom/common/img/avatar/avatar_default.jpg}">
+                            </div>
+                        </div>
+                        <div style="background-color: #f0f2f5" class="wrap-content-reply-comment">
+                            <div style="color: #494f54; display: flex; justify-content: space-between">
+                                <span class="name-user" th:text="${replyComment.nameUser}"></span>
+                                <div style="font-size: 13px">
+                                    <i style="color: green" class="fas fa-check-circle"></i>
+                                    <span>Đã được phê duyệt</span>
+                                </div>
+                            </div>
+                            <div class="content-reply-comment">
+                                <div style="width: calc(100% - 32px)">
+                                    <div style="width: 100%" th:text="${replyComment.content}"><span
+                                            style="font-weight: 600" th:text="${replyComment.nameUserTag}"></span></div>
+                                    <div style="height: 82px" th:if="${replyComment.nameImage}">
+                                        <img class="image-comment-small"
+                                             th:src="@{'/custom/common/img/image_comment/' + ${replyComment.nameImage}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="react-comment">
+                                <div style="margin-right: 16px">
+                                    <i class="fas fa-heart heart-react-comment"></i>
+                                    <span class="number-heart">2</span>
+                                </div>
+                                <span class="time-comment" th:text="${replyComment.timeReplyComment}"></span>
+                                <span th:if="${replyComment.edited}">Đã chỉnh sửa</span>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade bd-example-modal-lg" id="modal_conclusion" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div style="overflow-y: initial !important" class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đưa ra kết luận</h5>
+                </div>
+                
+                <div style="overflow-y: auto; max-height: calc(100vh - 200px)" class="modal-body">
+                    <div class="row">
+                        <form class="col-md-12">
+                            <div class="form-group">
+                                <textarea id="textarea-conclusion"></textarea>
+                                <p class="error-message-other" :class="{ hidden : !isShowErrorConclusion}">
+                                    Trường này là bắt buộc</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm" @click="saveConclusion()">Lưu</button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

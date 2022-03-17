@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header class="header" th:fragment="header">
+
+
+        <div class="header-nav">
+            <div class="header-logo">
+                <img src="https://storage.googleapis.com/fe-production/icon_vxr_full.svg" alt="logo">
+            </div>
+            <div class="header-content"></div>
+            <div class="header-list-icon">
+                <div class="header-icon-i">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="header-icon-i click-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;" class="profile-tab">
+            <div class="profile-sub-tab">
+                <a href="">Profile</a>
+            </div>
+            <div class="profile-sub-tab">
+                <a href="/home">Go to home page</a>
+            </div>
+            <div class="profile-sub-tab">
+                <a href="">abc</a>
+            </div>
+            <div class="profile-sub-tab">
+                <a href="">xyz</a>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                $(".click-avatar").click(function(){
+                    $(".profile-tab").toggle(300);
+                });
+            });
+        </script>
+    </header>
+</body>
+</html>

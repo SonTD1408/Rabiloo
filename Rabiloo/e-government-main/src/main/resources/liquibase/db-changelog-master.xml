@@ -1,0 +1,45 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="liquibase/user/schema.xml"/>
+    <include file="liquibase/user/data.xml"/>
+
+    <include file="liquibase/role/schema.xml"/>
+    <include file="liquibase/role/data.xml"/>
+
+    <include file="liquibase/discussion_post/schema.xml"/>
+
+    <include file="liquibase/field/schema.xml"/>
+    <include file="liquibase/field/data.xml"/>
+
+    <include file="liquibase/sub_field/schema.xml"/>
+    <include file="liquibase/sub_field/data.xml"/>
+
+    <include file="liquibase/comment/schema.xml"/>
+
+    <include file="liquibase/reply_comment/schema.xml"/>
+
+    <include file="liquibase/notification/notification_admin.xml"/>
+    <include file="liquibase/notification/notification_user.xml"/>
+
+    <include file="liquibase/reason_denied_comment/schema.xml"/>
+    <include file="liquibase/reason_denied_comment/data.xml"/>
+
+    <include file="liquibase/actionable/schema.xml"/>
+    <include file="liquibase/actionable/data.xml"/>
+
+    <include file="liquibase/news/schema.xml"/>
+
+    <include file="liquibase/calendar_delete_comment/schema.xml"/>
+
+    <include file="liquibase/like/schema.xml"/>
+
+    <include file="liquibase/token/schema.xml"/>
+
+    <include file="liquibase/city/schema.xml"/>
+    <include file="liquibase/city/data.xml"/>
+
+
+</databaseChangeLog>
