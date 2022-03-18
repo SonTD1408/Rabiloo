@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="component">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Loader */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 5000;
+            overflow: hidden;
+            -webkit-overflow-scrolling: touch;
+            outline: 0;
+            opacity: .5;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #0984ff;
+            border-bottom: 5px solid #0984ff;
+            width: 30px;
+            height: 30px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Alert */
+        .alert {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            min-width: 300px;
+            top: -100px;
+            right: 25px;
+            z-index: 10000;
+        }
+
+        .alert p{
+            margin: 0;
+        }
+        .alert i {
+            margin-top: 2px;
+            margin-right: 4px;
+            padding-right: 8px;
+        }
+    </style>
+    <div class="loader-container d-none" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="alert alert-success alert-dismissible" role="alert" id="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+        <i class="fa-regular fa-circle-check"></i>
+
+        <i class="fa fa-times-circle error-icon"></i>
+        <p id="message-alert">Success</p>
+    </div>
+</div>
+</body>
+</html>

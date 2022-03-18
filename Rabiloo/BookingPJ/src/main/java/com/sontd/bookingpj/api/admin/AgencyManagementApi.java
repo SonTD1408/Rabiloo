@@ -34,4 +34,10 @@ public class AgencyManagementApi {
         userService.saveAgencyDetail(user);
         return "";
     }
+
+    @PostMapping("/deleteAgency")
+    public String deleteAgency(@RequestParam(value = "id") long id){
+        userService.deleteAgency(id);
+        return "s";
+    }
 }

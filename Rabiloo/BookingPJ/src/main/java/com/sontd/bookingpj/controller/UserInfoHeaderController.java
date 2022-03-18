@@ -12,6 +12,7 @@ public class UserInfoHeaderController {
     public void currentUser(Model model, HttpSession session){
         if (session.getAttribute("name")!=null){
             model.addAttribute("name",session.getAttribute("name"));
+            model.addAttribute("role" ,session.getAttribute("role"));
         }else{
             model.addAttribute("name","null");
         }

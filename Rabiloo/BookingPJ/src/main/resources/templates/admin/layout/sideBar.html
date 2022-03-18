@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body >
     <div class="side-bar" th:fragment="sideBar(currentPage)">
+        <style>
+            .sidebar-hidden{
+                display: none;
+            }
+            .admin-page{
+                font-family: 'Times New Roman', Times, serif;
+            }
+        </style>
         <div class="admin-page">
-            <div class="side-bar-selector" th:classappend="${currentPage}=='dashboard'? 'is-select':''">
+            <div class="side-bar-selector" th:classappend="${currentPage=='dashboard'? 'is-select':''}">
                 <a href="/admin/home">Dashboard</a>
             </div>
-            <div class="side-bar-selector" th:classappend="${currentPage}=='agencyManagement'? 'is-select':''">
+
+            <div class="side-bar-selector" th:classappend="|${currentPage=='agencyManagement'? 'is-select':''}${role!=1 ? 'sidebar-hidden': ''}|">
                 <a href="/admin/agencyManagement">Agency Management</a>
             </div>
-            <div class="side-bar-selector" th:classappend="${currentPage}=='AllCar'? 'is-select':''">
-                <a href="">All Car</a>
+            <div class="side-bar-selector" th:classappend="|${currentPage=='carManagement'? 'is-select':''}${role!=2 ? 'sidebar-hidden':''}|">
+                <a href="/admin/carManagement">Car Management</a>
             </div>
             <div class="side-bar-selector" th:text="${currentPage}"></div>
         </div>

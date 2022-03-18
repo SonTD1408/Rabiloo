@@ -1,0 +1,42 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_table_car" author="sontd">
+        <createTable tableName="car">
+            <column name="id" type="int(11)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="id_company" type="int(11)"/>
+            <column name="type" type="int"/>
+            <column name="empty_spot" type="int"/>
+            <column name="license_plate" type="varchar(15)"/>
+            <column name="from" type="varchar(50)"/>
+            <column name="to" type="varchar(50)"/>
+            <column name="cost" type="int(11)"/>
+            <column name="date" type="datetime"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append
+                    value="ENGINE=INNODB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_520_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="create_table_type_car" author="sontd">
+        <createTable tableName="type_car">
+            <column name="id" type="int(11)"/>
+            <column name="type" type="int"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_seat" author="sontd">
+        <createTable tableName="seat">
+            <column name="id" type="int(11)"/>
+            <column name="id_car" type="int"/>
+            <column name="index" type="int"/>
+            <column name="is_empty" type="boolean"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

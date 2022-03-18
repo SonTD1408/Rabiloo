@@ -66,7 +66,7 @@ public class UserController {
                                         @RequestParam("user") String user,
                                         @RequestParam("password") String pass,
                                         @RequestParam("address") String address){
-        userService.saveAgencyRegister(company,email,phone,user,pass,address);
+        userService.saveAgencyRegister(company,company,email,phone,user,pass,address);
         return "redirect:home";
     }
 }

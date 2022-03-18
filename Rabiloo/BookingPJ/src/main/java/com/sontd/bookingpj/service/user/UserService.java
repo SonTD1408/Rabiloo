@@ -20,13 +20,16 @@ public class UserService {
         return user;
     }
 
-    public void saveAgencyRegister(String company,
+    public void saveAgencyRegister(String name,
+                                   String company,
                                   String email,
                                   String phone,
                                   String user,
                                   String pass,
                                   String address){
         UserEntity userAgencyRegister = new UserEntity();
+
+        userAgencyRegister.setName(name);
         userAgencyRegister.setCompanyName(company);
         userAgencyRegister.setEmail(email);
         userAgencyRegister.setPhone(phone);
@@ -58,4 +61,5 @@ public class UserService {
     public void saveAgencyDetail(UserEntity user){
         userRepository.save(user);
     }
+    public void deleteAgency(long id){userRepository.deleteById(id);}
 }

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+   
+    
+    <title>Document</title>
+
+    <style>
+        /* Loader */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 5000;
+            overflow: hidden;
+            -webkit-overflow-scrolling: touch;
+            outline: 0;
+            opacity: .5;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #0984ff;
+            border-bottom: 5px solid #0984ff;
+            width: 30px;
+            height: 30px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Alert */
+        .alert {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            min-width: 350px;
+            top: -100px;
+            right: 25px;
+            z-index: 10000;
+        }
+
+        .alert i {
+            margin-top: 2px;
+            margin-right: 4px;
+        }
+
+        /* Upload image */
+        #upload-image:hover {
+            background-color: #ccc;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Switch */
+        /* The switch - the box around the slider */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-bottom: -8px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            cursor: pointer;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 1px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input.disabled:checked + .slider {
+            background-color: #7c7cf8;
+            cursor: default;
+        }
+
+        input:checked + .slider {
+            background-color: blue;
+        }
+
+        input:focus + .slider {
+            /*box-shadow: 0 0 1px blue;*/
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(17px);
+            -ms-transform: translateX(17px);
+            transform: translateX(17px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+            height: 24px;
+            width: 46px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+
+        /* start radio button custom*/
+        .radio-container {
+            display: inline-block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Hide the browser's default radio button */
+        .radio-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom radio button */
+        .checkmark {
+            position: absolute;
+            top: -2px;
+            left: 0px;
+            height: 20px;
+            width: 20px;
+            background-color: white;
+            border-radius: 50%;
+            border: solid 1px #595149;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .radio-container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .radio-container:hover input[type="radio"][disabled] ~ .checkmark {
+            background-color: white;
+        }
+
+        /* When the radio button is checked, add a blue background */
+        .radio-container input:checked ~ .checkmark {
+            background-color: white;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .radio-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .radio-container .checkmark:after {
+            top: 4px;
+            left: 4px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #595149;
+        }
+        /* end radio button custom */
+
+
+    </style>
+</head>
+<body>
+     <!-- Bootstrap -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <div class="loader-container d-none" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="alert alert-success alert-dismissible" role="alert" id="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+        <i class="fa fa-check-circle success-icon"></i>
+        <i class="fa fa-times-circle error-icon"></i>
+        <p id="message-alert">Success</p>
+    </div>
+</body>
+</html>
