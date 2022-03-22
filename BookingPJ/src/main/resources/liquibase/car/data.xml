@@ -1,0 +1,26 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert_table_type_car" author="sontd">
+        <insert tableName="type_car">
+            <column name="id" value="1"/>
+            <column name="type" value="4"/>
+        </insert>
+        <insert tableName="type_car">
+            <column name="id" value="2"/>
+            <column name="type" value="7"/>
+        </insert>
+        <insert tableName="type_car">
+            <column name="id" value="3"/>
+            <column name="type" value="16"/>
+        </insert>
+        <insert tableName="type_car">
+            <column name="id" value="4"/>
+            <column name="type" value="24"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
